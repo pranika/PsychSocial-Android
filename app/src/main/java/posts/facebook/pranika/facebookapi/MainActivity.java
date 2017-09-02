@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     String id="";
 
     MyAsync asyn=new MyAsync();
-    UpdateAsync updateAsync=new UpdateAsync();
+    UpdateAsync updateAsync=new UpdateAsync(this);
     FeedData feeddata;
     Feed feed=new Feed();
     String accesstoken;
@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 updateValues.setUrl(app_url);
                 updateValues.setCase_history(case_history);
                 updateValues.setLevel(type);
+                updateValues.setPatientid(userid);
                 updateAsync.execute(updateValues);
 
 

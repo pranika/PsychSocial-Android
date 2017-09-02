@@ -68,12 +68,6 @@ public class AuthAffectedPatients extends AppCompatActivity {
                             }
 
 
-
-
-
-
-
-
                         }
                         catch (Exception e)
                         {}
