@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="posts.facebook.pranika.facebookapi.MainActivity">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+             />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layoutsignup"
+                android:visibility="visible"
+
+                android:orientation="vertical"
+           >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+             ></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="USN"
+                    android:textColor="@color/dark_grey"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/usn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textColor="@color/dark_grey"
+                    android:hint="USN"
+                    android:textColorHint="@color/grey"
+                    android:drawableLeft="@drawable/person"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"
+              ></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="@color/dark_grey"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textColor="@color/dark_grey"
+                    android:hint="first and last name"
+                    android:textColorHint="@color/grey"
+                    android:drawableLeft="@drawable/person2"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"
+         ></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sex"
+                    android:textColor="@color/dark_grey"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/sex"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textColor="@color/dark_grey"
+                    android:hint="M/F"
+                    android:textColorHint="@color/grey"
+                    android:drawableLeft="@drawable/heart"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="DOB"
+                    android:textColor="@color/dark_grey"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/dob"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textColor="@color/dark_grey"
+                    android:inputType="date"
+                    android:hint="dd/mm/yy"
+                    android:textColorHint="@color/grey"
+                    android:drawableLeft="@drawable/date"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Phone"
+                    android:textColor="@color/dark_grey"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textColor="@color/dark_grey"
+                    android:inputType="number"
+                    android:hint="required"
+                    android:textColorHint="@color/grey"
+                    android:drawableLeft="@drawable/phone"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"></View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Case History"
+                        android:textColor="@color/dark_grey"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="normal|bold" />
+
+                    <EditText
+                        android:id="@+id/case_history"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textColor="@color/dark_grey"
+                        android:inputType="text"
+                        android:hint="required"
+                        android:textColorHint="@color/grey"
+                        android:drawableLeft="@drawable/email"
+                        android:drawablePadding="10dp"
+                        android:padding="10dp"
+                        android:background="@android:color/transparent"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"></View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+
+                        android:layout_weight="0.10"
+                        android:text="Severity Level"
+                        android:textColor="@color/dark_grey"
+                        android:textStyle="normal|bold" />
+
+                    <RadioGroup
+                        android:id="@+id/radio"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.24">
+
+                        <RadioButton android:id="@+id/low"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Low"
+                            android:onClick="onRadioButtonClicked"/>
+                        <RadioButton android:id="@+id/mild"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mild"
+                            android:onClick="onRadioButtonClicked"/>
+                        <RadioButton android:id="@+id/severe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Severe"
+                            android:onClick="onRadioButtonClicked"/>
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"
+             ></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textColor="@color/dark_grey"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:textStyle="normal|bold" />
+
+
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textColor="@color/dark_grey"
+                    android:inputType="textEmailAddress"
+                    android:hint="required"
+                    android:textColorHint="@color/grey"
+                    android:drawableLeft="@drawable/email"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"></View>
+
+            <Button
+                android:id="@+id/signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sign up"
+                android:textColor="#ffffff"
+                android:textAllCaps="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_background_fill_blue"/>
+
+
+
+        </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

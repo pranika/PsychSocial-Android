@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+    <TextView
+        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:text="NO PATIENTS REGISTERED YET"
+        android:visibility="gone"
+        android:layout_marginTop="150dp"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="30dp"
+        android:id="@+id/textpatient"
+        >
+        </TextView>
+
+    <!-- TODO: Update blank fragment layout -->
+    <!--<TextView-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:text="Month Feed"/>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/patientsrecycler_view"
+        android:scrollbars="vertical"
+        android:paddingTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

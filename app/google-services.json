@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "617121484712",
+    "firebase_url": "https://facebookdepressionapi.firebaseio.com",
+    "project_id": "facebookdepressionapi",
+    "storage_bucket": "facebookdepressionapi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617121484712:android:35c1e5d6d87ba5bb",
+        "android_client_info": {
+          "package_name": "posts.facebook.pranika.facebookapi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617121484712-15cp83ckku8dj98jvkviutp9rlrdvt02.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "posts.facebook.pranika.facebookapi",
+            "certificate_hash": "a6684bf7faa51aad74a0cee77df84ea864b9715b"
+          }
+        },
+        {
+          "client_id": "617121484712-dop6btc4ooel8vke3tjrcj7a6gmmat2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrVmTXed2jlV4xf3ypKlLZ0-5M5gqfGOg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617121484712-dop6btc4ooel8vke3tjrcj7a6gmmat2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,125 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    android:orientation="vertical"
+>
+    <TextView
+        android:id="@+id/createAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="30dp"
+        android:text="Doctor Sign Up"
+        android:textStyle="bold"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/edit_text_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/createAccount"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="Enter your Name"
+
+        android:inputType="textEmailAddress"
+        android:nextFocusDown="@+id/edit_text_password"
+        android:padding="14dp"
+        android:textColor="#616161"
+        android:textColorHint="@color/grey"
+
+        android:textSize="15.3sp" />
+
+    <EditText
+        android:id="@+id/edit_text_email"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/createAccount"
+        android:background="@android:color/white"
+        android:hint="Enter your email"
+        android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"
+        android:nextFocusDown="@+id/edit_text_password"
+        android:padding="14dp"
+        android:textColorHint="@color/grey"
+
+        android:textColor="#616161"
+
+        android:textSize="15.3sp" />
+
+
+    <EditText
+        android:id="@+id/edit_text_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/createAccount"
+        android:background="@android:color/white"
+
+        android:hint="Enter your password"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:padding="14dp"
+        android:textColor="#616161"
+        android:textColorHint="@color/grey"
+
+        android:textSize="15.3sp" />
+
+
+
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:background="@color/blue"
+        android:textColor="#ffffff"
+        android:text="Create User" />
+
+
+    <TextView
+        android:id="@+id/loginTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:text="Already have a account ?"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginTV"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/blue"
+        android:textColor="#ffffff"
+        android:text="Login" />
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:textColor="#ffffff"
+
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:text="Logout" />
+
+</LinearLayout>
