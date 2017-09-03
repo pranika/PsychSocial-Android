@@ -27,6 +27,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
+
         <activity android:name=".MainActivity" />
         <activity android:name=".Feeds" />
         <activity android:name=".SingleFeed" />
@@ -42,6 +43,16 @@
         <activity android:name=".DetailWeekActivity" />
         <activity android:name=".DetailYearActivity" />
         <activity android:name=".AuthAffectedPatients"></activity>
+
+        <service android:name=".FcmInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT">
+
+                </action>
+            </intent-filter>
+
+        </service>
+
     </application>
 
 </manifest>

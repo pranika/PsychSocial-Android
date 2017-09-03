@@ -41,7 +41,7 @@ public class DoctorSignUp extends AppCompatActivity {
     String userid = "";
     EditText useremailET;
     EditText passwordET,name;
-    DoctorAsync asyn=new DoctorAsync();
+    DoctorAsync asyn=new DoctorAsync(this);
     String docid="";
     FirebaseDatabase database;
     Doctor doc;
@@ -135,10 +135,13 @@ public class DoctorSignUp extends AppCompatActivity {
                         snackbar.show();
                         userid = mAuth.getCurrentUser().getUid();
 
+                        SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
+                        String token=sharedPreferences.getString(getString(R.string.FCM_TOKEN),"");
                         doc.setId(userid);
                         doc.setName(nametext);
                         doc.setEmail(useremailET.getText().toString());
                         doc.setPassword(passwordET.getText().toString());
+                        doc.setFcm_token(token);
                         asyn.execute(doc);
 
 

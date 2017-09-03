@@ -52,6 +52,7 @@ public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
             final String email = doc.getEmail();
             final String password = doc.getPassword();
             final String name = doc.getName();
+            final String fcm_token=doc.getFcm_token();
             // System.out.println("url"+url+"casehistory"+case_history+"level"+level);
             URL connecturl = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) connecturl.openConnection();
@@ -68,7 +69,7 @@ public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
             map.put("email", email);
             map.put("password", password);
             map.put("name", name);
-            map.put("fcm_token", "");
+            map.put("fcm_token", fcm_token);
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
