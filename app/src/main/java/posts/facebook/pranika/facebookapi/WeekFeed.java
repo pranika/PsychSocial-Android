@@ -36,7 +36,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class WeekFeed extends Fragment {
 
-    String url="http://192.168.1.116:3000/showfeedsweek";
+    String url="http://192.168.1.103000/showfeedsweek";
     List<Map<String,?>> feedList;
     RecyclerView recyclerView;
     Context context;
@@ -136,6 +136,7 @@ public class WeekFeed extends Fragment {
 
 
                             }
+
                             weekAdapter=new WeekAdapter(getActivity(),feedList);
                             recyclerView.setAdapter(weekAdapter);
 
@@ -172,8 +173,9 @@ public class WeekFeed extends Fragment {
 
             }
         });
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
+        MySingleton.getmInstance(getActivity()).addToRequestQue(stringRequest);
+       // RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        //requestQueue.add(stringRequest);
 
 
 

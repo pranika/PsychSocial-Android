@@ -18,10 +18,18 @@
 
     </item>
     <item
+        android:title="Weekly Analysis"
+        android:id="@+id/graph"
+        android:enabled="true"
+        android:icon="@drawable/ic_view_week"
+        app:showAsAction="ifRoom">
+
+    </item>
+    <item
         android:title="Register Patient"
         android:id="@+id/registered"
         android:enabled="true"
-        android:icon="@drawable/ic_face_black_24dp"
+        android:icon="@drawable/com_facebook_button_icon_white"
         app:showAsAction="ifRoom">
 
     </item>
@@ -29,9 +37,10 @@
         android:title="Show Patients"
         android:id="@+id/displaypatients"
         android:enabled="true"
-        android:icon="@drawable/ic_view_day"
+        android:icon="@drawable/ic_face_black_24dp"
         app:showAsAction="ifRoom">
 
     </item>
+
 
 </menu>

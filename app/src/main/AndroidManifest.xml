@@ -4,6 +4,7 @@
     package="posts.facebook.pranika.facebookapi">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".PatientsData"
@@ -27,7 +28,6 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-
         <activity android:name=".MainActivity" />
         <activity android:name=".Feeds" />
         <activity android:name=".SingleFeed" />
@@ -42,17 +42,22 @@
         <activity android:name=".DetailActivity" />
         <activity android:name=".DetailWeekActivity" />
         <activity android:name=".DetailYearActivity" />
-        <activity android:name=".AuthAffectedPatients"></activity>
+        <activity android:name=".AuthAffectedPatients" />
+
 
         <service android:name=".FcmInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT">
-
-                </action>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-
+        </service>
+        <service android:name=".FcmMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
         </service>
 
+        <activity android:name=".PatientStatus" />
+        <activity android:name=".WeekGraph"></activity>
     </application>
 
 </manifest>

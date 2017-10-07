@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 public class SingleFragment extends Fragment {
 
-    String url="http://192.168.1.116:3000/getafeed";
+    String url="http://10.1.193.91:3000/getafeed";
     TextView name,email,feed,createdtime,sex;
 
     public SingleFragment() {

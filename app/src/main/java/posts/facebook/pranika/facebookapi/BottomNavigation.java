@@ -51,9 +51,9 @@ public class BottomNavigation extends AppCompatActivity {
                         Intent intent2=new Intent(getApplicationContext(),AuthAffectedPatients.class);
                         startActivity(intent2);
                         break;
-//                    case R.id.home:
-//                        Intent intent3=new Intent(getApplicationContext(),DoctorSignUp.class);
-//                        startActivity(intent3);
+                    case R.id.graph:
+                        Intent intent3=new Intent(getApplicationContext(),WeekGraph.class);
+                        startActivity(intent3);
 
 
 

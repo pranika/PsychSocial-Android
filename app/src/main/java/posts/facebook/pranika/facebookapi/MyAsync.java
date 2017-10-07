@@ -34,6 +34,7 @@ public class MyAsync extends AsyncTask<List<Map<String,?>>,String, List<Map<Stri
 
 
 
+
     @Override
     protected List<Map<String, ?>> doInBackground(List<Map<String, ?>>... feeds) {
 
@@ -42,7 +43,7 @@ public class MyAsync extends AsyncTask<List<Map<String,?>>,String, List<Map<Stri
         Log.d("doctor",docid.toString());
 
         List<Map<String, ?>> feed_objs = feeds[0];
-        MongoClientURI uri = new MongoClientURI( "mongodb://192.168.1.116:27017/facebookapi");
+        MongoClientURI uri = new MongoClientURI( "mongodb://service.arunlogistics.com:27017/facebookapi");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
         MongoCollection collection = db.getCollection("feed");
@@ -90,16 +91,16 @@ public class MyAsync extends AsyncTask<List<Map<String,?>>,String, List<Map<Stri
                 documentMapPatient.put("accesstoken",accesstoken);
 
 
-             try {
-
-                    collection.insertOne(documentMapDetail);
-
-
-                  //  Log.d("document",documentMapPatient.toString());
-                }
-
-             catch(MongoWriteException e) {
-             }
+//             try {
+//
+//                    collection.insertOne(documentMapDetail);
+//
+//
+//                  //  Log.d("document",documentMapPatient.toString());
+//                }
+//
+//             catch(MongoWriteException e) {
+//             }
                 try {
                     patients.insertOne(documentMapPatient);
                   //  Log.d("document",documentMapPatient.toString());

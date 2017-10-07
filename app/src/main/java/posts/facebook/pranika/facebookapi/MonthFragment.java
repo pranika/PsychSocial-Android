@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class MonthFragment extends Fragment {
 
-    String url="http://192.168.1.116:3000/showfeedsmonth";
+    String url="http://192.168.1.10:3000/showfeedsmonth";
     List<Map<String,?>> feedList;
     RecyclerView recyclerView;
     Context context;

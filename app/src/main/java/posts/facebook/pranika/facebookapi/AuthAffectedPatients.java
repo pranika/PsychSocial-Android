@@ -26,7 +26,7 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class AuthAffectedPatients extends AppCompatActivity {
 
-    String url="http://192.168.1.116:3000/getafeedupdated";
+    String url="http://10.1.193.91:3000/getafeedupdated";
     private FirebaseAuth mauth;
     TextView textView;
 

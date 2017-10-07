@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     LoginButton login;
     private static final String DOCTOR_ID = "DOCTOR_ID";
 
-    String app_url = "http://192.168.1.116:3000/update_patient";
+    String app_url = "http://10.1.193.91:3000/update_patient";
     private static final String DOC = "docid";
     // PREFS_MODE defines which apps can access the file
     private static final int PREFS_MODE = Context.MODE_PRIVATE;

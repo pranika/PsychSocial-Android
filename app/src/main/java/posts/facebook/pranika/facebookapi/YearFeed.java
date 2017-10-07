@@ -38,7 +38,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class YearFeed extends android.support.v4.app.Fragment{
 
-        String url="http://192.168.1.116:3000/showfeedsyear";
+        String url="http://192.168.1.10:3000/showfeedsyear";
         List<Map<String,?>> feedList;
         RecyclerView recyclerView;
         Context context;
