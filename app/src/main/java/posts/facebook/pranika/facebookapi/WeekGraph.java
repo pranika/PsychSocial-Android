@@ -20,6 +20,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.json.JSONArray;
@@ -91,26 +92,34 @@ public class WeekGraph extends AppCompatActivity {
 
                                 int count =Integer.parseInt((String)feeditem.get("count"));
                          //       xAxisDate.add(datevalue);
+                                System.out.println( "datevzlue"+datevalue.getTime());
+                                yAxisCount.add(new Entry((datevalue.getTime() - firstRef)/1000, count));
 
-                                yAxisCount.add(new Entry((datevalue.getTime() - firstRef)/(1000*60*60*24), count));
 
 
 
                             }
+
                             ArrayList<ILineDataSet> lineDataSets=new ArrayList<>();
                             LineDataSet lineDataSet=new LineDataSet(yAxisCount, "Count");
-                            lineDataSet.setDrawCircles(false);
                             lineDataSet.setColor(Color.RED);
+                            lineDataSet.setCircleColor(Color.GREEN);
+
+                            lineDataSet.setDrawCircles(true);
                             lineDataSets.add(lineDataSet);
 
 
                             LineData ld = new LineData(lineDataSet);
 
-                            ld.setValueFormatter(new MyValueFormatter(firstRef));
+                            IAxisValueFormatter xAxisFormatter = new DateAxisFormatter(firstRef);
+                            XAxis xAxis = lineChart.getXAxis();
+                            xAxis.setValueFormatter(xAxisFormatter);
+
+                           // ld.setValueFormatter(new MyValueFormatter(firstRef));
                             lineChart.setData(ld);
                             //                           XAxis xAxis = lineChart.getXAxis();
 //                            xAxis.
-                            lineChart.invalidate();
+                           lineChart.invalidate();
 
 
 
