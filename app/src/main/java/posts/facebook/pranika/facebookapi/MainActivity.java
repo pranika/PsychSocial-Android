@@ -11,10 +11,13 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -58,10 +61,13 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    Spinner spinner;
+    ArrayAdapter<CharSequence> adapter;
+
     LoginButton login;
     private static final String DOCTOR_ID = "DOCTOR_ID";
 
-    String app_url = "http://10.1.193.91:3000/update_patient";
+    String app_url = "http://192.168.1.10:3000/update_patient";
     private static final String DOC = "docid";
     // PREFS_MODE defines which apps can access the file
     private static final int PREFS_MODE = Context.MODE_PRIVATE;
@@ -111,15 +117,31 @@ public class MainActivity extends AppCompatActivity {
         mauth=FirebaseAuth.getInstance();
         final Bundle extras = getIntent().getExtras();
         status= (RadioGroup) findViewById(R.id.radio);
+        spinner= (Spinner) findViewById(R.id.static_spinner);
+        adapter=ArrayAdapter.createFromResource(this,R.array.spinner,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                type= (String) parent.getItemAtPosition(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
 
 
-
+            }
+        });
         usn= (EditText) findViewById(R.id.usn);
         name= (EditText) findViewById(R.id.name);
         sex= (EditText) findViewById(R.id.sex);
         dob= (EditText) findViewById(R.id.dob);
         phone= (EditText) findViewById(R.id.phone);
+
         emailedit= (EditText) findViewById(R.id.email);
         casehistory= (EditText) findViewById(R.id.case_history);
       //  password= (EditText) findViewById(R.id.password);
@@ -136,61 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 emailtext=emailedit.getText().toString();
                 case_history=casehistory.getText().toString();
                 phonetext=phone.getText().toString();
-
-
-                ///**********************request volley to update***************************
-
-//
-//               final RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
-//                StringRequest stringRequest = new StringRequest(Request.Method.POST, app_url,
-//                        new Response.Listener<String>() {
-//
-//                            @Override
-//                            public void onResponse(String response) {
-//
-//                            }
-//                        }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//
-//                        Toast.makeText(getApplicationContext(),"Something Wrong",Toast.LENGTH_LONG).show();
-//                        error.printStackTrace();
-//                        requestQueue.stop();
-//
-//                    }
-//                })
-//
-//                {
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        Map<String, String> params = new HashMap<String, String>();
-//
-//
-//                        params.put("case_history", case_history);
-//                        params.put("level", type);
-//                        params.put("patientid",userid);
-//
-////                                       params.put("professorid",professorid);
-//
-//                        return params;
-//                    }
-//                };
-//
-//                requestQueue.add(stringRequest);
-//                requestQueue.stop();
-
-                ///*************************end request******************************************
-
-//                SharedPreferences settings = getApplicationContext().getSharedPreferences(DOCTOR_ID, PREFS_MODE);
-//                SharedPreferences.Editor editor = settings.edit();
-//                editor.putString("case_history", case_history);
-//                editor.putString("level",type);
-//              //  editor.putString("email",emailtext);
-//                editor.commit();
-
                 doctorid = mauth.getCurrentUser().getUid().toString();
-
-                //Toast.makeText(getApplicationContext(),userid+"CREATING",Toast.LENGTH_LONG).show();
 
                 updateValues.setUrl(app_url);
                 updateValues.setCase_history(case_history);
@@ -380,32 +348,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onRadioButtonClicked(View view) {
-
-        boolean checked = ((RadioButton) view).isChecked();
-        selectedid = status.getCheckedRadioButtonId();
-
-
-        switch (view.getId()) {
-            case R.id.low:
-
-                if (checked)
-                    level = (RadioButton) findViewById(selectedid);
-                type = level.getText().toString().trim();
-
-                break;
-            case R.id.mild:
-                if (checked)
-                    level = (RadioButton) findViewById(selectedid);
-                type = level.getText().toString().trim();
-                break;
-            case R.id.severe:
-                if (checked)
-                    level = (RadioButton) findViewById(selectedid);
-                type = level.getText().toString().trim();
-                break;
-        }
-    }
+//    public void onRadioButtonClicked(View view) {
+//
+//        boolean checked = ((RadioButton) view).isChecked();
+//        selectedid = status.getCheckedRadioButtonId();
+//
+//
+//        switch (view.getId()) {
+//            case R.id.low:
+//
+//                if (checked)
+//                    level = (RadioButton) findViewById(selectedid);
+//                type = level.getText().toString().trim();
+//
+//                break;
+//            case R.id.mild:
+//                if (checked)
+//                    level = (RadioButton) findViewById(selectedid);
+//                type = level.getText().toString().trim();
+//                break;
+//            case R.id.severe:
+//                if (checked)
+//                    level = (RadioButton) findViewById(selectedid);
+//                type = level.getText().toString().trim();
+//                break;
+//        }
+//    }
 
 
 }

@@ -11,4 +11,19 @@
 
     <string name="FCM_PREF">posts.facebook.pranika.facebookapi.fcm_pref</string>
     <string name="FCM_TOKEN">posts.facebook.pranika.facebookapi.fcm_token</string>
+    <string-array name="spinner">
+
+        <item>Select One of these</item>
+        <item>1. excellent disposition</item>
+        <item>2: feeling good</item>
+        <item>3: calm</item>
+        <item>4: no self-harm ideation</item>
+        <item>5: unlikely to attempt self-harm</item>
+        <item>6: may commit self-harm</item>
+        <item>7: very likely to attempt self-harm</item>
+        <item>8: attempted serious self-harm</item>
+        <item>9: very likely to attempt suicide</item>
+        <item>10: attempted suicide</item>
+
+    </string-array>
 </resources>

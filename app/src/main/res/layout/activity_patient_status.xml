@@ -6,58 +6,123 @@
     android:layout_height="match_parent"
     tools:context="posts.facebook.pranika.facebookapi.PatientStatus">
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upgrade Patient Status"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:textSize="30dp"
+        android:layout_gravity="center"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
-        <ImageButton
-            android:id="@+id/low"
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-
-
-            android:onClick="onButtonClicked"
-            android:src="@drawable/low" />
-
-        <ImageButton
-            android:id="@+id/mild"
+            android:id="@+id/radio">
+            <RadioButton
+                android:id="@+id/one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="excellent disposition"
+                android:onClick="onRadioButtonClicked"
+                />
+            <RadioButton
+                android:id="@+id/two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="feeling good"
+                android:onClick="onRadioButtonClicked"
+                />
+            <RadioButton
+                android:id="@+id/three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="calm"
+                android:onClick="onRadioButtonClicked"
+                />
+            <RadioButton
+                android:id="@+id/four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="no self-harm ideation"
+                android:onClick="onRadioButtonClicked"
+                />
+            <RadioButton
+                android:id="@+id/five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="unlikely to attempt self-harm"
+                android:onClick="onRadioButtonClicked"
+                />
+            <RadioButton
+            android:id="@+id/six"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="onButtonClicked"
-
-            android:src="@drawable/mid"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/low"
-            android:layout_marginTop="120dp" />
-
-
-        <ImageButton
-            android:id="@+id/high"
+            android:text="may commit self-harm"
+            android:onClick="onRadioButtonClicked"
+            />
+            <RadioButton
+                android:id="@+id/seven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="very likely to attempt self-harm"
+                android:onClick="onRadioButtonClicked"
+                />
+            <RadioButton
+                android:id="@+id/eight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="attempted serious self-harm"
+                android:onClick="onRadioButtonClicked"
+                />
+            <RadioButton
+                android:id="@+id/nine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="very likely to attempt suicide"
+                android:onClick="onRadioButtonClicked"
+                />
+            <RadioButton
+            android:id="@+id/ten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onButtonClicked"
-            android:src="@drawable/high"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/mild" />
+            android:text="attempted suicide"
+            android:onClick="onRadioButtonClicked"
+            />
 
-    </RelativeLayout>
+
+
+
+
+
+
+
+        </RadioGroup>
+
+
+
+
+    </LinearLayout>
     <Button
         android:id="@+id/update"
-        android:layout_width="283dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="30dp"
-        android:layout_toStartOf="@+id/mild"
-        android:text="CLICK ONE OF THESE" />
+        android:textColor="#ffffff"
+        android:background="#00BFFF"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:text="SELECT STATUS" />
 
 
 

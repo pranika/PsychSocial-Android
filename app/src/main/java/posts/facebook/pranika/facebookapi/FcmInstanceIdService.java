@@ -24,7 +24,7 @@ public class FcmInstanceIdService extends FirebaseInstanceIdService {
     FirebaseAuth mauth;
     String docid="";
     String recent_token="";
-    String app_url="http://10.1.193.91:3000/update_token";
+    String app_url="http://192.168.1.10:3000/update_token";
     @Override
     public void onTokenRefresh() {
         mauth= FirebaseAuth.getInstance();

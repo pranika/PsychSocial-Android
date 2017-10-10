@@ -36,7 +36,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class WeekFeed extends Fragment {
 
-    String url="http://192.168.1.103000/showfeedsweek";
+    String url="http://192.168.1.10:3000/showfeedsweek";
     List<Map<String,?>> feedList;
     RecyclerView recyclerView;
     Context context;
@@ -91,9 +91,6 @@ public class WeekFeed extends Fragment {
 
         feedList=new ArrayList<Map<String, ?>>();
         addData();
-
-
-
 
 //        recyclerView.setAdapter(new AlphaInAnimationAdapter(WeekAdapter));
   //          recyclerView.setAdapter(new ScaleInAnimationAdapter(WeekAdapter));

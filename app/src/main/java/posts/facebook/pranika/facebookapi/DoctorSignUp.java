@@ -94,15 +94,9 @@ public class DoctorSignUp extends AppCompatActivity {
             public void onClick(View v) {
                 {
 
-
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-
                         startActivity(intent);
-
-
-                }
-
-
+         }
 
             }
         });
@@ -110,6 +104,8 @@ public class DoctorSignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
+                Snackbar snackbar = Snackbar.make(useremailET, "User is Logged Out", Snackbar.LENGTH_LONG);
+                snackbar.show();
 
             }
         });
@@ -156,7 +152,6 @@ public class DoctorSignUp extends AppCompatActivity {
 
                         intent.putExtra("docid",userid);
                         startActivity(intent);
-
 
 
                     }
