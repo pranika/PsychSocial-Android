@@ -101,7 +101,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHo
     public ViewHolder(View itemView) {
         super(itemView);
         imageView=(ImageView) itemView.findViewById(R.id.image1);
-        button= (Button) itemView.findViewById(R.id.level);
+      //  button= (Button) itemView.findViewById(R.id.level);
 
         name =(TextView) itemView.findViewById(R.id.name);
         email=(TextView) itemView.findViewById(R.id.email);
@@ -109,12 +109,12 @@ public class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHo
         age_range=(TextView) itemView.findViewById(R.id.age_range);
 
         usn=(TextView) itemView.findViewById(R.id.usn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickListner.onClick(v,getAdapterPosition());
-            }
-        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onItemClickListner.onClick(v,getAdapterPosition());
+//            }
+//        });
 
 
 

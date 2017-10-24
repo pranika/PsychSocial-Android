@@ -1,5 +1,6 @@
 package posts.facebook.pranika.facebookapi;
 
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ public class PatientStatus extends AppCompatActivity {
     RadioButton level;
     Button button;
 
-    String app_url = "http://192.168.1.10:3000/update_status";
+    String app_url = "http://10.1.195.231:3000/update_status";
     int selectedid=0;
     private RadioGroup group;
     Button update;
@@ -75,6 +76,8 @@ public class PatientStatus extends AppCompatActivity {
                     }
                 };
                 MySingleton.getmInstance(PatientStatus.this).addToRequestQue(stringRequest);
+                Intent intent=new Intent(getApplicationContext(),BottomNavigation.class);
+                startActivity(intent);
             }
         });
 

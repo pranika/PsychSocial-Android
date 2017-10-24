@@ -33,7 +33,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
 
-    String url = "http://192.168.1.10:3000/insert_doctor";
+    String url = "http://10.1.232.254:3000/insert_doctor";
 
     private Context context;
 
@@ -92,9 +92,6 @@ public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
 
             }
 
-            // conn.connect();
-            // return response;
-
 
         } catch (Exception e) {
 
@@ -105,33 +102,7 @@ public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
         return null;
     }
 
-    // ************************** UI DOCTOR UPDATE***************
 
-//
-//                        MongoClientURI uri = new MongoClientURI( "mongodb://192.168.1.116:27017/facebookapi");
-//                        MongoClient mongoClient = new MongoClient(uri);
-//                        MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
-//                        MongoCollection doctors = db.getCollection("doctors");
-//                        Document documentMapDetail = new Document();
-//                        documentMapDetail.put("_id",doc.getId());
-//                        documentMapDetail.put("email",doc.getEmail());
-//                        documentMapDetail.put("password",doc.getPassword());
-//                        documentMapDetail.put("name",doc.getName());
-//                        //documentMapDetail.put("age_range",agerange);
-//
-//                        try {
-//                            doctors.insertOne(documentMapDetail);
-//                            //  Log.d("document",documentMapPatient.toString());
-//                        }
-//
-//                        catch(MongoWriteException e) {
-//                        }
-    //********************END ************************************
-
-//        Log.d("doctors",params.toString());
-//
-//        return null;
-//}
 
     private String getQuery(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();

@@ -4,6 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="wrap_content"
+
     android:layout_width="wrap_content">
 
 
@@ -13,13 +14,15 @@
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_width="420dp"
-        android:layout_height="230dp"
+        android:layout_height="wrap_content"
+
         card_view:cardCornerRadius="10dp"
         card_view:cardBackgroundColor="@color/cardview_shadow_end_color"
         card_view:cardElevation="10dp"
         card_view:cardUseCompatPadding="true">
         <LinearLayout
             android:orientation="vertical"
+            android:background="@color/Amber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -31,7 +34,7 @@
                 android:gravity="center_horizontal"
                 android:textStyle="bold"
                 android:textColor="@color/cardview_dark_background"
-                android:id="@+id/name"/>
+                android:id="@+id/nameweek"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -67,7 +70,7 @@
                             android:paddingTop="10dp"
                             android:textIsSelectable="true"
                             android:paddingLeft="5dp"
-                            android:id="@+id/email"/>
+                            android:id="@+id/emailweek"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -86,8 +89,29 @@
                             android:paddingTop="10dp"
                             android:textIsSelectable="true"
                             android:paddingLeft="5dp"
-                            android:id="@+id/gender"/>
+                            android:id="@+id/genderweek"/>
                     </LinearLayout>
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal">-->
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="10dp"-->
+                    <!--android:textIsSelectable="true"-->
+                    <!--android:paddingLeft="5dp"-->
+                    <!--android:text="Age Range : "/>-->
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="10dp"-->
+                    <!--android:textIsSelectable="true"-->
+                    <!--android:paddingLeft="5dp"-->
+                    <!--android:id="@+id/age_rangeweek"/>-->
+                    <!--</LinearLayout>-->
+
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -98,14 +122,38 @@
                             android:paddingTop="10dp"
                             android:textIsSelectable="true"
                             android:paddingLeft="5dp"
-                            android:text="Age Range : "/>
+                            android:text="Created Time  : "/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="0dp"
+                            android:textIsSelectable="true"
+                            android:paddingLeft="5dp"
+                            android:id="@+id/created_timeweek"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/feedtextweek"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+
+                            android:textIsSelectable="true"
+                            android:paddingLeft="5dp"
+                            android:text="Feed  : "/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
+
                             android:textIsSelectable="true"
                             android:paddingLeft="5dp"
-                            android:id="@+id/age_range"/>
+                            android:id="@+id/feedweek"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -114,31 +162,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
+
+                            android:id="@+id/messagetextweek"
+
                             android:textIsSelectable="true"
                             android:paddingLeft="5dp"
-                            android:text="USN  : "/>
+                            android:text="Message  : "/>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
+                            android:paddingTop="0dp"
+
                             android:textIsSelectable="true"
                             android:paddingLeft="5dp"
-                            android:id="@+id/usn"/>
+                            android:id="@+id/messageweek"/>
                     </LinearLayout>
+
+
 
 
                 </LinearLayout>
 
-
             </LinearLayout>
-            <!--<Button-->
-                <!--android:layout_width="382dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/level"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="Edit"-->
-                <!--android:background="@color/blue"/>-->
+
+            <Button
+                android:layout_width="382dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/showmoreweek"
+                android:layout_marginTop="10dp"
+                android:text="Show More"
+                android:background="@color/blue"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

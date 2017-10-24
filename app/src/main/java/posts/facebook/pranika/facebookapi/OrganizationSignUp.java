@@ -22,26 +22,24 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Random;
-
-
-public class DoctorSignUp extends AppCompatActivity {
+public class OrganizationSignUp extends AppCompatActivity {
     private static final String USER_CREATION_SUCCESS = "Successfully created user";
     private static final String USER_CREATION_ERROR = "User creation error";
     private static final String EMAIL_INVALID = "email is invalid :";
-    private static final String DOCTOR_ID = "DOCTOR_ID";
+    private static final String Organization_ID = "Organization_ID";
     // PREFS_MODE defines which apps can access the file
     private static final int PREFS_MODE = Context.MODE_PRIVATE;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences sharedpreferences;
     private static final String COURSE = "course";
     private static final String USERID = "userid";
     String userid = "";
-    EditText useremailET,gender,specialisation;
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    EditText useremailET;
     EditText passwordET,name;
-    DoctorAsync asyn=new DoctorAsync(this);
-    String docid="";
+    OrganizationAsync asyn=new OrganizationAsync(this);
+    String orgid="";
     FirebaseDatabase database;
-    Doctor doc;
+    Organization org;
     DatabaseReference ref;
     Button login,createButton,logout;
     Intent intent;
@@ -53,17 +51,15 @@ public class DoctorSignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor_sign_up);
-        doc=new Doctor();
+        setContentView(R.layout.activity_organization_sign_up);
+        org=new Organization();
         useremailET = (EditText) findViewById(R.id.edit_text_email);
         passwordET = (EditText) findViewById(R.id.edit_text_password);
-        gender = (EditText) findViewById(R.id.edit_text_gender);
-        specialisation = (EditText) findViewById(R.id.edit_text_specialisation);
         createButton = (Button) findViewById(R.id.signup);
         name = (EditText) findViewById(R.id.edit_text_name);
         login = (Button) findViewById(R.id.login);
         database = FirebaseDatabase.getInstance();
-
+        ref = database.getReference().child("Organizations");
         mAuth = FirebaseAuth.getInstance();
         logout= (Button) findViewById(R.id.logout);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -72,19 +68,19 @@ public class DoctorSignUp extends AppCompatActivity {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                    if(firebaseAuth.getCurrentUser() == null)
-                    {
+                if(firebaseAuth.getCurrentUser() == null)
+                {
 
-                    }
+                }
 
             }
 
-            };
+        };
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                docid =createUser();
+                orgid =createUser();
 
             }
         });
@@ -93,9 +89,9 @@ public class DoctorSignUp extends AppCompatActivity {
             public void onClick(View v) {
                 {
 
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
-         }
+                    Intent intent = new Intent(getApplicationContext(), OrganizationLogin.class);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -108,7 +104,7 @@ public class DoctorSignUp extends AppCompatActivity {
 
             }
         });
-        }
+    }
 
     public String createUser() {
 
@@ -130,43 +126,34 @@ public class DoctorSignUp extends AppCompatActivity {
                         snackbar.show();
                         userid = mAuth.getCurrentUser().getUid();
 
-                        Random rand = new Random();
-                        int value = rand.nextInt(5000);
-
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
                         String token=sharedPreferences.getString(getString(R.string.FCM_TOKEN),"");
-                        doc.setId(userid);
-                        doc.setName(nametext);
-                        doc.setEmail(useremailET.getText().toString());
-                        doc.setPassword(passwordET.getText().toString());
-                        doc.setSpecialisation(specialisation.getText().toString());
-                        doc.setGender(gender.getText().toString());
 
-                        doc.setFcm_token(token);
-                        asyn.execute(doc);
+                        org.setId(userid);
+                        org.setName(nametext);
+                        org.setEmail(useremailET.getText().toString());
+                        org.setPassword(passwordET.getText().toString());
+                        org.setFcm_token(token);
+                        asyn.execute(org);
 
-
-                        ref = database.getReference().child("Organizations").getRef();
-                        SharedPreferences   sharedpreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        String orgid=sharedpreferences.getString("orgid","");
-                        DatabaseReference ref2 = ref.child(orgid).getRef();
-                        DatabaseReference doctor = ref2.child("doctors");
-                        DatabaseReference userdb=doctor.child(userid);
-//
+                        DatabaseReference userdb = ref.child(userid);
                         userdb.child("id").setValue(userid);
                         userdb.child("email").setValue(useremailET.getText().toString());
                         userdb.child("password").setValue(passwordET.getText().toString());
-                        userdb.child("specialization").setValue(specialisation.getText().toString());
-                        userdb.child("gender").setValue(gender.getText().toString());
                         userdb.child("name").setValue(nametext);
+                        sharedpreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("orgid",userid);
+                        editor.commit();
 
-                        intent=new Intent(getApplicationContext(),BottomNavigation.class);
+                        intent=new Intent(getApplicationContext(),ShowDoctors.class);
 
-                        intent.putExtra("docid",userid);
+                        intent.putExtra("orgid",userid);
                         startActivity(intent);
 
 
                     }
+
 
                 }
 

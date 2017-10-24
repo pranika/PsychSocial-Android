@@ -45,12 +45,10 @@ public class RegisterdUsers extends Fragment {
     PatientsAdapter patientsAdapter;
     OnLevelClicklistner mlistner;
     private RecyclerView.LayoutManager mLayoutManager;
-    //RegisteredAdapter adapter;
     String userid="";
     List<Map<String,?>> feedList;
-   // RegisteredUsersAdapter myFirebaseRecylerAdapter;
-        Context mContext;
 
+        Context mContext;
 
     public interface OnLevelClicklistner {
         void showLevelActivity(HashMap feed,int position,List<Map<String,?>> feedList);
@@ -58,23 +56,9 @@ public class RegisterdUsers extends Fragment {
     public RegisterdUsers() {
 
         feedList = new ArrayList<Map<String,?>>();
-       // adapter = null;
 
-        // Required empty public constructor
     }
-//
-//    public void setAdapter(RegisteredAdapter mAdapter) {
-//
-//        adapter = mAdapter;
-//    }
-
     public void setContext(Context context){mContext = context;}
-
-
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,12 +89,9 @@ public class RegisterdUsers extends Fragment {
         alpha.setDuration(2000);
         alpha.setInterpolator(new OvershootInterpolator());
         scale.setFirstOnly(false);
-
-
         mauth=FirebaseAuth.getInstance();
         userid=mauth.getCurrentUser().getUid().toString();
-        ref=new Firebase
-                ("https://facebookdepressionapi.firebaseio.com/doctors/"+userid+"/patients");
+        ref=new Firebase("https://facebookdepressionapi.firebaseio.com/doctors/"+userid+"/patients");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,8 +115,7 @@ public class RegisterdUsers extends Fragment {
 
             }
 
-
-                try {
+             try {
 
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
 
@@ -145,21 +125,7 @@ public class RegisterdUsers extends Fragment {
                         Log.d("key", latestKey);
                         Log.d("feed", childSnapshot.getValue().toString());
 
-//                        int insertPosition = 0;
-//                        String id = (String) feed.get("id");
-//                        for (int i = 0; i < feedList.size(); i++) {
-//
-//                            String mid = (String) feed.get("id");
-//                            if (mid.equals(id)) {
-//                                return;
-//                            }
-//                            if (mid.compareTo(id) < 0) {
-//                                insertPosition = i + 1;
-//                            } else {
-//                                break;
-//                            }
-//
-//                        }
+
                         feedList.add(feed);
                         Log.d("feedslist firbase", feedList.toString());
                         patientsAdapter = new PatientsAdapter(getActivity(), feedList, latestKey);
@@ -170,9 +136,7 @@ public class RegisterdUsers extends Fragment {
 
                             @Override
                             public void onClick(View view, int position) {
-
                                 HashMap feed=new HashMap(position);
-                                //  Log.d("hashmap",feed.get("createdtime").toString());
                                 mlistner.showLevelActivity(feed,position,feedList);
 
 
@@ -185,38 +149,20 @@ public class RegisterdUsers extends Fragment {
                     }
                 }catch (Exception e)
                 {}
-
-
-
-
-
-
-            }
+             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
             }
         });
-
-
-
-
-
-
-        return rootview;
+     return rootview;
     }
 
     public void initializedatafromcloud()
     {
-        //feedList.clear();
-
-
 
 
     }
-
-
-
 
 }

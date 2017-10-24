@@ -25,6 +25,7 @@ import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     OnItemClickListner onItemClickListner;
+
     Context context;
     List<Map<String, ?>> feedlist;
 

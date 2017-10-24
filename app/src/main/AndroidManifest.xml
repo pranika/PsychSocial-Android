@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DoctorSignUp">
+        <activity android:name=".OrganizationSignUp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,7 +44,6 @@
         <activity android:name=".DetailYearActivity" />
         <activity android:name=".AuthAffectedPatients" />
 
-
         <service android:name=".FcmInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -57,7 +56,11 @@
         </service>
 
         <activity android:name=".PatientStatus" />
-        <activity android:name=".WeekGraph"></activity>
+        <activity android:name=".WeekGraph" />
+        <activity android:name=".DoctorSignUp" />
+        <activity android:name=".ShowDoctors" />
+        <activity android:name=".FrontPage" />
+        <activity android:name=".OrganizationLogin"></activity>
     </application>
 
 </manifest>

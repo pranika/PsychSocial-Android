@@ -47,7 +47,7 @@ public class MyAsync extends AsyncTask<List<Map<String,?>>,String, List<Map<Stri
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
         MongoCollection collection = db.getCollection("feed");
-        MongoCollection patients = db.getCollection("Patients");
+        MongoCollection patients = db.getCollection("patients");
 
 
             for (Map<String, ?> feeditem : feed_objs) {

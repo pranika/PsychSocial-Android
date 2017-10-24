@@ -24,6 +24,7 @@ import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder> {
     Context context;
     List<Map<String, ?>> feedlist;
+    int position;
     FeedAdapter.OnItemClickListner onItemClickListner;
 
     public WeekAdapter(Context context1, List<Map<String, ?>> feedList) {
@@ -39,6 +40,13 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder> {
         this.onItemClickListner = onItemClickListner;
 
     }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        return super.getItemViewType(position);
+    }
+
     @Override
     public WeekAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
@@ -50,6 +58,7 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(WeekAdapter.ViewHolder holder, int position) {
         HashMap feed=(HashMap)feedlist.get(position);
+
         String feed1="";
         holder.name.setText((String)feed.get("name"));
         holder.email.setText((String)feed.get("email"));

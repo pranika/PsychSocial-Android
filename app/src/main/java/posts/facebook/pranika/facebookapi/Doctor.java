@@ -46,5 +46,27 @@ public class Doctor  {
         this.password = password;
     }
 
-    String id,name,email,password;
+    String id;
+    String name;
+    String email;
+    String password;
+
+    public String getSpecialisation() {
+        return specialisation;
+    }
+
+    public void setSpecialisation(String specialisation) {
+        this.specialisation = specialisation;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    String specialisation;
+    String gender;
 }

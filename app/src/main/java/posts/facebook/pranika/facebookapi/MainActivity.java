@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     LoginButton login;
     private static final String DOCTOR_ID = "DOCTOR_ID";
 
-    String app_url = "http://192.168.1.10:3000/update_patient";
+    String app_url = "http://192.168.1.21:3000/update_patient";
     private static final String DOC = "docid";
     // PREFS_MODE defines which apps can access the file
     private static final int PREFS_MODE = Context.MODE_PRIVATE;
@@ -171,6 +171,10 @@ public class MainActivity extends AppCompatActivity {
 
 
                 try {
+
+
+
+
 
                     database = FirebaseDatabase.getInstance();
                     ref = database.getReference().child("doctors").getRef();
@@ -348,32 +352,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    public void onRadioButtonClicked(View view) {
-//
-//        boolean checked = ((RadioButton) view).isChecked();
-//        selectedid = status.getCheckedRadioButtonId();
-//
-//
-//        switch (view.getId()) {
-//            case R.id.low:
-//
-//                if (checked)
-//                    level = (RadioButton) findViewById(selectedid);
-//                type = level.getText().toString().trim();
-//
-//                break;
-//            case R.id.mild:
-//                if (checked)
-//                    level = (RadioButton) findViewById(selectedid);
-//                type = level.getText().toString().trim();
-//                break;
-//            case R.id.severe:
-//                if (checked)
-//                    level = (RadioButton) findViewById(selectedid);
-//                type = level.getText().toString().trim();
-//                break;
-//        }
-//    }
 
 
 }

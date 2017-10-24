@@ -35,7 +35,7 @@ import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 
 public class WeekGraph extends AppCompatActivity {
-    String url="http://192.168.1.10:3000/showfeedsweek";
+    String url="http://10.1.195.231:3000/showfeedsweek";
     List<Map<String,?>> feedList;
     LineChart lineChart;
 
