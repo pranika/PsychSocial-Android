@@ -1,6 +1,8 @@
 package posts.facebook.pranika.facebookapi;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private Button loginbutton;
     private FirebaseAuth mauth;
+    public static final String MyPREFERENCES = "MyPrefs" ;
     String userid="";
     private FirebaseAuth.AuthStateListener authStateListener;
     Intent intent;
@@ -34,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.pwd);
         loginbutton = (Button) findViewById(R.id.login);
 
+
         authStateListener=new FirebaseAuth.AuthStateListener(){
 
             @Override
@@ -41,6 +45,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(firebaseAuth.getCurrentUser()!=null)
                 {
+                    SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                    final String orgid=sharedpreferences.getString("orgid","");
+
 
                     intent = new Intent(getApplicationContext(),BottomNavigation.class);
                     startActivity(new Intent(getApplicationContext(),BottomNavigation.class));

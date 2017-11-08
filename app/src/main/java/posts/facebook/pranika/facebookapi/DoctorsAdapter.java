@@ -28,14 +28,11 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
     Context context;
     List<Map<String, ?>> feedlist;
     DoctorsAdapter.OnItemClickListner onItemClickListner;
-    String patientkey;
 
-    private FirebaseAuth mauth;
-    private Object object;
 
     public DoctorsAdapter(Context context1, List<Map<String, ?>> feedList) {
         context=context1;
-      //  patientkey=key;
+
         feedlist=feedList;
     }
     public interface OnItemClickListner{
@@ -59,24 +56,16 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(DoctorsAdapter.ViewHolder holder, int position) {
-        mauth= FirebaseAuth.getInstance();
-
 
         Log.d("bindlist",feedlist.toString());
 
         HashMap feed=(HashMap)feedlist.get(position);
-//    Object object = feed.get(patientkey);
-//    HashMap map=new HashMap();
-//    map.put(""object);
-//
-//
-//
-//    Log.d("feedmap",object.);
+
         holder.name.setText((String)feed.get("name"));
         holder.email.setText((String)feed.get("email"));
-        holder.gender.setText((String)feed.get("sex"));
-       holder.specialisation.setText((String)feed.get("specialisation"));
-    //    holder.usn.setText((String)feed.get("usn"));
+        holder.doctortype.setText((String)feed.get("doctortype"));
+        holder.specialization.setText((String)feed.get("specialization"));
+
     }
 
     @Override
@@ -91,12 +80,11 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
         public ImageView imageView;
         public TextView name;
         public TextView email;
-        public TextView specialisation;
-        public TextView gender;
+        public TextView specialization;
+        public TextView doctortype;
         public Button button;
 
-        public TextView age_range;
-        public TextView usn;
+
         public ViewHolder(View itemView) {
             super(itemView);
             imageView=(ImageView) itemView.findViewById(R.id.image1);
@@ -104,11 +92,9 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
 
             name =(TextView) itemView.findViewById(R.id.name);
             email=(TextView) itemView.findViewById(R.id.email);
-            specialisation=(TextView) itemView.findViewById(R.id. specialisation);
-            gender=(TextView) itemView.findViewById(R.id. gender);
-          //  age_range=(TextView) itemView.findViewById(R.id.age_range);
+            specialization=(TextView) itemView.findViewById(R.id. specialisation);
+            doctortype=(TextView) itemView.findViewById(R.id. gender);
 
-          //  usn=(TextView) itemView.findViewById(R.id.usn);
 //        button.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

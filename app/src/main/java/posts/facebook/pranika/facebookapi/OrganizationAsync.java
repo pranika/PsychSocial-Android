@@ -44,7 +44,6 @@ final String email = doc.getEmail();
 final String password = doc.getPassword();
 final String name = doc.getName();
 final String fcm_token=doc.getFcm_token();
-        // System.out.println("url"+url+"casehistory"+case_history+"level"+level);
         URL connecturl = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) connecturl.openConnection();
 

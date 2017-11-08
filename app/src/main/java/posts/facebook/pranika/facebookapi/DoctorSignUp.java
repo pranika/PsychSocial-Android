@@ -12,40 +12,56 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 
 
 public class DoctorSignUp extends AppCompatActivity {
     private static final String USER_CREATION_SUCCESS = "Successfully created user";
     private static final String USER_CREATION_ERROR = "User creation error";
-    private static final String EMAIL_INVALID = "email is invalid :";
-    private static final String DOCTOR_ID = "DOCTOR_ID";
-    // PREFS_MODE defines which apps can access the file
-    private static final int PREFS_MODE = Context.MODE_PRIVATE;
-    private static final String COURSE = "course";
-    private static final String USERID = "userid";
+
     String userid = "";
-    EditText useremailET,gender,specialisation;
+    EditText useremailET,specialisation;
     public static final String MyPREFERENCES = "MyPrefs" ;
     EditText passwordET,name;
     DoctorAsync asyn=new DoctorAsync(this);
     String docid="";
+    String doctype;
     FirebaseDatabase database;
     Doctor doc;
     DatabaseReference ref;
     Button login,createButton,logout;
     Intent intent;
-
+    String url = "http://192.168.1.21:1337/Doctors";
     FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -54,37 +70,44 @@ public class DoctorSignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_sign_up);
-        doc=new Doctor();
+        doc = new Doctor();
+
         useremailET = (EditText) findViewById(R.id.edit_text_email);
         passwordET = (EditText) findViewById(R.id.edit_text_password);
-        gender = (EditText) findViewById(R.id.edit_text_gender);
         specialisation = (EditText) findViewById(R.id.edit_text_specialisation);
         createButton = (Button) findViewById(R.id.signup);
         name = (EditText) findViewById(R.id.edit_text_name);
         login = (Button) findViewById(R.id.login);
-        database = FirebaseDatabase.getInstance();
 
-        mAuth = FirebaseAuth.getInstance();
-        logout= (Button) findViewById(R.id.logout);
+        FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
+                .setDatabaseUrl("https://facebookdepressionapi.firebaseio.com/")
+                .setApiKey("AIzaSyD-1l4YOU3I09rZlSURCOxBcvQL65fCaFY")
+                .setApplicationId("facebookdepressionapi").build();
+
+        FirebaseApp myApp = FirebaseApp.initializeApp(getApplicationContext(),firebaseOptions,
+                "DoctorApp");
+
+        mAuth = FirebaseAuth.getInstance(myApp);
+        logout = (Button) findViewById(R.id.logout);
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                    if(firebaseAuth.getCurrentUser() == null)
-                    {
+                if (firebaseAuth.getCurrentUser() == null) {
 
-                    }
+                }
 
             }
 
-            };
+        };
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                docid =createUser();
+                docid = createUser();
 
             }
         });
@@ -93,9 +116,9 @@ public class DoctorSignUp extends AppCompatActivity {
             public void onClick(View v) {
                 {
 
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
-         }
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -108,7 +131,28 @@ public class DoctorSignUp extends AppCompatActivity {
 
             }
         });
+    }
+
+
+        public void onRadioButtonClicked(View view) {
+            // Is the button now checked?
+            boolean checked = ((RadioButton) view).isChecked();
+
+            // Check which radio button was clicked
+            switch(view.getId()) {
+                case R.id.radio_physican:
+                    if (checked)
+                        doctype="Primary Physician";
+
+
+                        break;
+                case R.id.radio_coordinator:
+                    if (checked)
+                        doctype ="Coordinator";
+                        break;
+            }
         }
+
 
     public String createUser() {
 
@@ -130,40 +174,81 @@ public class DoctorSignUp extends AppCompatActivity {
                         snackbar.show();
                         userid = mAuth.getCurrentUser().getUid();
 
-                        Random rand = new Random();
-                        int value = rand.nextInt(5000);
+                        SharedPreferences   sharedpreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                        final String orgid=sharedpreferences.getString("orgid","");
+
 
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
                         String token=sharedPreferences.getString(getString(R.string.FCM_TOKEN),"");
                         doc.setId(userid);
                         doc.setName(nametext);
                         doc.setEmail(useremailET.getText().toString());
-                        doc.setPassword(passwordET.getText().toString());
+
                         doc.setSpecialisation(specialisation.getText().toString());
-                        doc.setGender(gender.getText().toString());
-
+                        doc.setDoctype(doctype);
+                        doc.setOrganizationId(orgid);
                         doc.setFcm_token(token);
-                        asyn.execute(doc);
+
+                        //********************************okhttp********************************
+
+                        OkHttpClient client = new OkHttpClient.Builder().build();
 
 
-                        ref = database.getReference().child("Organizations").getRef();
-                        SharedPreferences   sharedpreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        String orgid=sharedpreferences.getString("orgid","");
-                        DatabaseReference ref2 = ref.child(orgid).getRef();
-                        DatabaseReference doctor = ref2.child("doctors");
-                        DatabaseReference userdb=doctor.child(userid);
-//
-                        userdb.child("id").setValue(userid);
-                        userdb.child("email").setValue(useremailET.getText().toString());
-                        userdb.child("password").setValue(passwordET.getText().toString());
-                        userdb.child("specialization").setValue(specialisation.getText().toString());
-                        userdb.child("gender").setValue(gender.getText().toString());
-                        userdb.child("name").setValue(nametext);
+                        JSONObject json = new JSONObject();
+                        try {
 
-                        intent=new Intent(getApplicationContext(),BottomNavigation.class);
+                            json.put("doctorid",userid);
+                            json.put("organization",orgid);
+                            json.put("email",doc.getEmail());
+                            json.put("name",doc.getName());
+                            json.put("specialization",doc.getSpecialisation());
+                            json.put("status","Active");
+                            json.put("doctortype",doctype);
 
-                        intent.putExtra("docid",userid);
-                        startActivity(intent);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+                        RequestBody body = RequestBody.create(JSON, json.toString());
+
+                        okhttp3.Request request = new okhttp3.Request.Builder()
+                                .url(url)
+                                .post(body)
+                                .build();
+
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                Log.d("response", e.toString());
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                                Log.d("response", response.toString());
+                                Log.d("response", response.body().string());
+
+                                DoctorSignUp.this.runOnUiThread(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+
+                                        mAuth.signOut();
+
+                                        intent=new Intent(getApplicationContext(),BottomNavigation.class);
+
+                                        startActivity(intent);
+
+                                    }
+                                });
+
+                            }
+                        });
+
 
 
                     }

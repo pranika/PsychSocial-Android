@@ -46,10 +46,6 @@ public class PatientStatus extends AppCompatActivity {
                 Bundle data = getIntent().getExtras();
                 final String patient_id = data.getString("patient_id");
 
-
-                //********************************************
-
-
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, app_url,
                         new Response.Listener<String>() {
 

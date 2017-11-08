@@ -82,6 +82,7 @@
         android:layout_below="@+id/createAccount"
         android:background="@android:color/white"
 
+
         android:hint="Enter your Specialization"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
@@ -90,25 +91,56 @@
         android:textColorHint="@color/grey"
 
         android:textSize="15.3sp" />
-    <EditText
-        android:id="@+id/edit_text_gender"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/createAccount"
         android:background="@android:color/white"
+        android:orientation="horizontal">
 
-        android:hint="Enter your Gender"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:padding="14dp"
-        android:textColor="#616161"
-        android:textColorHint="@color/grey"
+        <TextView
+            android:id="@+id/textView2"
 
-        android:textSize="15.3sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Doctor Type"
+            android:textColor="#616161"
 
+            android:textSize="20dp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"></TextView>
 
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/type"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_physican"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#616161"
+                android:textColorHint="@color/grey"
+                android:onClick="onRadioButtonClicked"
+                android:text="Primary Physician" />
+
+            <RadioButton
+                android:id="@+id/radio_coordinator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#616161"
+                android:textColorHint="@color/grey"
+                android:onClick="onRadioButtonClicked"
+                android:text="Coordinator" />
+        </RadioGroup>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/signup"

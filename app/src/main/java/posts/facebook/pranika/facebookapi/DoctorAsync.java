@@ -33,9 +33,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
 
-    String url = "http://10.1.232.254:3000/insert_doctor";
+    String url = "http://10.1.224.85:1337/Doctors";
 
     private Context context;
+
 
     public DoctorAsync(Context context) { this.context = context; }
 
@@ -53,6 +54,9 @@ public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
             final String password = doc.getPassword();
             final String name = doc.getName();
             final String fcm_token=doc.getFcm_token();
+            final String orgid=doc.getOrganizationId();
+
+
             // System.out.println("url"+url+"casehistory"+case_history+"level"+level);
             URL connecturl = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) connecturl.openConnection();
@@ -70,6 +74,7 @@ public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
             map.put("password", password);
             map.put("name", name);
             map.put("fcm_token", fcm_token);
+            map.put("organizations",orgid);
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));

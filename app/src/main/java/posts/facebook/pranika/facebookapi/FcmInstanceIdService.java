@@ -35,47 +35,54 @@ public class FcmInstanceIdService extends FirebaseInstanceIdService {
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putString(getString(R.string.FCM_TOKEN),recent_token);
         editor.commit();
-        if(mauth.getCurrentUser().getUid().toString() !=null) {
+        if(mauth!=null){
 
-            docid = mauth.getCurrentUser().getUid().toString();
+            if(mauth.getCurrentUser().getUid().toString() !=null) {
 
-            //********************************************
+                docid = mauth.getCurrentUser().getUid().toString();
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, app_url,
-                    new Response.Listener<String>() {
+                //********************************************
 
-                        @Override
-                        public void onResponse(String response) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, app_url,
+                        new Response.Listener<String>() {
 
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(FcmInstanceIdService.this,"not responding",Toast.LENGTH_LONG).show();
-                    System.out.println("no responding");
+                            @Override
+                            public void onResponse(String response) {
 
-                }
-            })
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(FcmInstanceIdService.this,"not responding",Toast.LENGTH_LONG).show();
+                        System.out.println("no responding");
 
-            {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
+                    }
+                })
 
-                    params.put("docid", docid);
-                    params.put("token", recent_token);
+                {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+
+                        params.put("docid", docid);
+                        params.put("token", recent_token);
 
 //                                       params.put("professorid",professorid);
 
-                    return params;
-                }
-            };
-            MySingleton.getmInstance(FcmInstanceIdService.this).addToRequestQue(stringRequest);
+                        return params;
+                    }
+                };
+                MySingleton.getmInstance(FcmInstanceIdService.this).addToRequestQue(stringRequest);
 
+
+            }
+            else
+            {}
 
         }
         else
         {}
+
 
 
 

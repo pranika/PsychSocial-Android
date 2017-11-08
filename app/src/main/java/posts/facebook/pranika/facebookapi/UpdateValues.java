@@ -8,12 +8,7 @@ public class UpdateValues {
 
     String url;
 
-//    public UpdateValues(String case_history1, String level1,String patientid1) {
-//        case_history=case_history1;
-//        level=level1;
-//        patientid=patientid1;
-//
-//    }
+
 
     public String getPatientid() {
         return patientid;

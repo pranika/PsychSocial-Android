@@ -51,6 +51,16 @@ public class Doctor  {
     String email;
     String password;
 
+    public String getDoctype() {
+        return doctype;
+    }
+
+    public void setDoctype(String doctype) {
+        this.doctype = doctype;
+    }
+
+    String doctype;
+
     public String getSpecialisation() {
         return specialisation;
     }
@@ -69,4 +79,14 @@ public class Doctor  {
 
     String specialisation;
     String gender;
+
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    String organizationId;
 }

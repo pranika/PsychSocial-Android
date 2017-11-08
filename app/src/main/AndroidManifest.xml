@@ -60,7 +60,8 @@
         <activity android:name=".DoctorSignUp" />
         <activity android:name=".ShowDoctors" />
         <activity android:name=".FrontPage" />
-        <activity android:name=".OrganizationLogin"></activity>
+        <activity android:name=".OrganizationLogin" />
+        <activity android:name=".Module.StartActivity"></activity>
     </application>
 
 </manifest>

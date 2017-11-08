@@ -1,29 +1,28 @@
 package posts.facebook.pranika.facebookapi;
 
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoDatabase;
 
-import java.math.BigInteger;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.mongodb.client.MongoCollection;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-import com.mongodb.MongoWriteException;
 
-import static com.mongodb.client.model.Filters.eq;
 
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by nikhiljain on 7/20/17.
@@ -32,7 +31,10 @@ import static com.mongodb.client.model.Filters.eq;
 public class MyAsync extends AsyncTask<List<Map<String,?>>,String, List<Map<String,?>>> {
     FirebaseAuth mauth;
 
+    String url = "http://10.1.232.254:1337/Patients";
+    private Context context;
 
+    public MyAsync(Context context) { this.context = context; }
 
 
     @Override
@@ -43,80 +45,92 @@ public class MyAsync extends AsyncTask<List<Map<String,?>>,String, List<Map<Stri
         Log.d("doctor",docid.toString());
 
         List<Map<String, ?>> feed_objs = feeds[0];
-        MongoClientURI uri = new MongoClientURI( "mongodb://service.arunlogistics.com:27017/facebookapi");
-        MongoClient mongoClient = new MongoClient(uri);
-        MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
-        MongoCollection collection = db.getCollection("feed");
-        MongoCollection patients = db.getCollection("patients");
-
-
+        try{
+            String response = "";
             for (Map<String, ?> feeditem : feed_objs) {
 
-                String story= feeditem.get("story").toString();
-                String message= feeditem.get("message").toString();
-                String email=feeditem.get("email").toString();
-                String name=feeditem.get("name").toString();
-                String gender=feeditem.get("gender").toString();
-                String agerange=feeditem.get("birthday").toString();
-                String accesstoken=feeditem.get("accesstoken").toString();
-                String userid= feeditem.get("userid").toString();
-                String id= (String) feeditem.get("id");
-                String createdtime= (String) feeditem.get("create_time");
-                String casehistory= (String) feeditem.get("case_history");
-                String status= (String) feeditem.get("status");
 
-                Document documentMapDetail = new Document();
-                documentMapDetail.put("_id", id);
-                documentMapDetail.put("email",email);
-                documentMapDetail.put("name",name);
-                documentMapDetail.put("gender",gender);
-                documentMapDetail.put("age_range",agerange);
+                String email = feeditem.get("email").toString();
+                String name = feeditem.get("name").toString();
+                String gender = feeditem.get("gender").toString();
+                String agerange = feeditem.get("birthday").toString();
+                String accesstoken = feeditem.get("accesstoken").toString();
+                String userid = feeditem.get("userid").toString();
 
-                documentMapDetail.put("userid", userid);
-                documentMapDetail.put("createdtime",createdtime);
-                documentMapDetail.put("story",story);
-                documentMapDetail.put("message",message);
-                documentMapDetail.put("email_flag",0);
-                Document documentMapPatient = new Document();
-
-                documentMapPatient.put("_id", userid );
-                documentMapPatient.put("doctorid",docid);
-                documentMapPatient.put("case_history",casehistory);
-                documentMapPatient.put("level",status);
-
-                documentMapPatient.put("email",email);
-                documentMapPatient.put("name",name);
-                documentMapPatient.put("gender",gender);
-                documentMapPatient.put("age_range",agerange);
-                documentMapPatient.put("accesstoken",accesstoken);
+                String casehistory = (String) feeditem.get("case_history");
+                String status = (String) feeditem.get("status");
 
 
-//             try {
-//
-//                    collection.insertOne(documentMapDetail);
-//
-//
-//                  //  Log.d("document",documentMapPatient.toString());
-//                }
-//
-//             catch(MongoWriteException e) {
-//             }
-                try {
-                    patients.insertOne(documentMapPatient);
-                  //  Log.d("document",documentMapPatient.toString());
-                }
 
-                catch(MongoWriteException e) {
+                URL connecturl = new URL(url);
+                HttpURLConnection conn = (HttpURLConnection) connecturl.openConnection();
+
+
+                conn.setReadTimeout(1000000000);
+                conn.setConnectTimeout(1500000000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                HashMap map = new HashMap<>();
+                map.put("userid", userid);
+                map.put("", userid);
+                map.put("email", email);
+                map.put("name", name);
+                map.put("gender", gender);
+                map.put("agerange", agerange);
+                map.put("accesstoken", accesstoken);
+                map.put("case", casehistory);
+                map.put("status", status);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getQuery(map));
+                writer.flush();
+                writer.close();
+                os.close();
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+                    Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+                } else {
+                    response = "";
+                    Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+
                 }
             }
+
+            } catch (Exception e) {
+
+            e.printStackTrace();
+        }
         return null;
 
     }
 
-    @Override
-    protected void onPostExecute(List<Map<String, ?>> maps) {
-        super.onPostExecute(maps);
 
+    private String getQuery(HashMap<String, String> params) throws UnsupportedEncodingException {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
 
+        for (Map.Entry<String, String> entry : params.entrySet())
+        {
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+        }
+
+        return result.toString();
     }
 }

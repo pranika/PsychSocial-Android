@@ -42,9 +42,7 @@ public class UpdateAsync extends AsyncTask<UpdateValues,String, UpdateValues> {
 
         UpdateValues updateValues=params[0];
 
-//        String url=updateValues.getUrl();
-//        String case_history=updateValues.getCase_history();
-//        String level=updateValues.getLevel();
+
         String response = "";
 
         try
@@ -90,11 +88,6 @@ public class UpdateAsync extends AsyncTask<UpdateValues,String, UpdateValues> {
                 Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
 
             }
-
-           // conn.connect();
-           // return response;
-
-
 
 
         }
