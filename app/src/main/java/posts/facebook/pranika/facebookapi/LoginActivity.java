@@ -17,14 +17,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private EditText email;
     private EditText password;
     private Button loginbutton;
     private FirebaseAuth mauth;
-    public static final String MyPREFERENCES = "MyPrefs" ;
-    String userid="";
+
+
+
     private FirebaseAuth.AuthStateListener authStateListener;
     Intent intent;
 
@@ -32,26 +33,36 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mauth=FirebaseAuth.getInstance();
+        mauth=FirebaseAuth.getInstance(myApp);
         email= (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.pwd);
         loginbutton = (Button) findViewById(R.id.login);
 
+        final String orgid=pref.getString("orgid","");
 
         authStateListener=new FirebaseAuth.AuthStateListener(){
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
 
+
                 if(firebaseAuth.getCurrentUser()!=null)
                 {
-                    SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                    final String orgid=sharedpreferences.getString("orgid","");
+//                         if(orgid!=null){
+//                             pref.edit().putString("orgid",orgid);
+//                        intent=new Intent(getApplicationContext(),BottomNavigationOrganization.class);
+//
+//                        startActivity(intent);
+//
+//
+//                    }
+//                    else if(orgid==null) {
+//
 
-
-                    intent = new Intent(getApplicationContext(),BottomNavigation.class);
-                    startActivity(new Intent(getApplicationContext(),BottomNavigation.class));
-
+                        intent = new Intent(getApplicationContext(), BottomNavigation.class);
+                        startActivity(new Intent(getApplicationContext(), BottomNavigation.class));
+//                    }
+//
                 }
             }
         };
@@ -81,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(emailtext) || TextUtils.isEmpty(pwd))
         {
-            Toast.makeText(getApplicationContext(),"Fields empty",Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"Fields empty",Toast.LENGTH_LONG).show();
 
         }
         else {
@@ -90,13 +101,14 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                     if (!task.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "LOGIN FAILED", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "LOGIN FAILED", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "LOGIN SUCCESS", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "LOGIN SUCCESS", Toast.LENGTH_LONG).show();
                         intent = new Intent(getApplicationContext(),BottomNavigation.class);
                         startActivity(new Intent(getApplicationContext(),BottomNavigation.class));
+
 
                     }
 

@@ -16,30 +16,38 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
+import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
+
 /**
  * Created by nikhiljain on 9/3/17.
  */
 
 public class FcmInstanceIdService extends FirebaseInstanceIdService {
     FirebaseAuth mauth;
-    String docid="";
+    String orgid="";
     String recent_token="";
-    String app_url="http://10.1.195.231:3000/update_token";
+    String app_url="";
+
+    @Inject
+    SharedPreferences pref;
     @Override
     public void onTokenRefresh() {
         mauth= FirebaseAuth.getInstance();
+        ((DaggerApplication)getApplication()).getAppComponent().inject(this);
+        app_url="http://10.1.245.214:3000/update_token";
 
         recent_token= FirebaseInstanceId.getInstance().getToken();
         System.out.println("recent token"+recent_token);
-        SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString(getString(R.string.FCM_TOKEN),recent_token);
-        editor.commit();
-        if(mauth!=null){
+
+        pref.edit().putString("fcm_token",recent_token).commit();
+
+        if(mauth.getCurrentUser()!=null){
 
             if(mauth.getCurrentUser().getUid().toString() !=null) {
 
-                docid = mauth.getCurrentUser().getUid().toString();
+                orgid = mauth.getCurrentUser().getUid().toString();
 
                 //********************************************
 
@@ -49,11 +57,13 @@ public class FcmInstanceIdService extends FirebaseInstanceIdService {
                             @Override
                             public void onResponse(String response) {
 
+
+
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(FcmInstanceIdService.this,"not responding",Toast.LENGTH_LONG).show();
+                       // Toast.makeText(FcmInstanceIdService.this,"not responding",Toast.LENGTH_LONG).show();
                         System.out.println("no responding");
 
                     }
@@ -64,10 +74,8 @@ public class FcmInstanceIdService extends FirebaseInstanceIdService {
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
 
-                        params.put("docid", docid);
+                        params.put("orgid", orgid);
                         params.put("token", recent_token);
-
-//                                       params.put("professorid",professorid);
 
                         return params;
                     }
@@ -82,10 +90,6 @@ public class FcmInstanceIdService extends FirebaseInstanceIdService {
         }
         else
         {}
-
-
-
-
 
         //********************************************
 

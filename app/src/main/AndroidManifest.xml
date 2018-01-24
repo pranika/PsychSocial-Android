@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".PatientsData"
+        android:name=".DaggerApp.DaggerApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrganizationSignUp">
+        <activity android:name=".FrontPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,30 +38,63 @@
             android:label="@string/title_activity_tabbed"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RegisteredActivity" />
-        <activity android:name=".BottomNavigation" />
+        <activity
+            android:name=".BottomNavigation"
+            android:launchMode="singleTop">
+
+            <!-- Branch URI scheme -->
+            <intent-filter>
+                <data
+                    android:host="open.my.app"
+                    android:scheme="http" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".DetailActivity" />
         <activity android:name=".DetailWeekActivity" />
         <activity android:name=".DetailYearActivity" />
         <activity android:name=".AuthAffectedPatients" />
-
-        <service android:name=".FcmInstanceIdService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name=".FcmMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
+        />
         <activity android:name=".PatientStatus" />
         <activity android:name=".WeekGraph" />
         <activity android:name=".DoctorSignUp" />
         <activity android:name=".ShowDoctors" />
-        <activity android:name=".FrontPage" />
+        <activity android:name=".OrganizationSignUp" />
         <activity android:name=".OrganizationLogin" />
-        <activity android:name=".Module.StartActivity"></activity>
+        <activity android:name=".UpdateDoctor" />
+        <activity android:name=".BottomNavigationOrganization" />
+
+        <!-- Branch init -->
+        <!-- <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_aeCQFMC3MWke3ctAeTdX4lmbsEj1pwEt" /> -->
+        <!-- <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_bkCVuTqXL4od2bzupGnZWfpnstf6oFqG" /> -->
+
+
+        <!-- &lt;!&ndash; Branch testing (TestMode "true" to simulate fresh installs on dev environment) &ndash;&gt; -->
+        <!-- <meta-data android:name="io.branch.sdk.TestMode" android:value="true" /> -->
+
+
+        <!-- Branch install referrer tracking -->
+        <!-- <receiver android:name="io.branch.referral.InstallListener" android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.android.vending.INSTALL_REFERRER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- <service android:name=".FcmInstanceIdService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.INSTANCE_ID_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <!-- <service android:name=".FcmMessagingService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+
+        <activity android:name=".AffectedPatients"></activity>
     </application>
 
 </manifest>

@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 /**
@@ -36,7 +38,8 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
         feedlist=feedList;
     }
     public interface OnItemClickListner{
-        public void onClick(View view, int position);
+        public void onEdit(View view, int position);
+        public void onDelete(View view, int position);
 
     }
     public void setOnItemClickListner(DoctorsAdapter.OnItemClickListner onItemClickListner)
@@ -59,12 +62,12 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
 
         Log.d("bindlist",feedlist.toString());
 
-        HashMap feed=(HashMap)feedlist.get(position);
+        HashMap feed= (HashMap) feedlist.get(position);
 
-        holder.name.setText((String)feed.get("name"));
-        holder.email.setText((String)feed.get("email"));
-        holder.doctortype.setText((String)feed.get("doctortype"));
-        holder.specialization.setText((String)feed.get("specialization"));
+        holder.name.setText(feed.get("name").toString());
+        holder.email.setText(feed.get("email").toString());
+        holder.doctortype.setText(feed.get("doctortype").toString());
+        holder.specialization.setText(feed.get("specialization").toString());
 
     }
 
@@ -76,7 +79,8 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
 
 
-        private AnimateViewHolder viewHolder;
+        @BindView(R.id.edit) Button edit;
+        @BindView(R.id.delete) Button delete;
         public ImageView imageView;
         public TextView name;
         public TextView email;
@@ -86,7 +90,9 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
 
 
         public ViewHolder(View itemView) {
+
             super(itemView);
+            ButterKnife.bind(this,itemView);
             imageView=(ImageView) itemView.findViewById(R.id.image1);
             //  button= (Button) itemView.findViewById(R.id.level);
 
@@ -95,12 +101,19 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
             specialization=(TextView) itemView.findViewById(R.id. specialisation);
             doctortype=(TextView) itemView.findViewById(R.id. gender);
 
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onItemClickListner.onClick(v,getAdapterPosition());
-//            }
-//        });
+          edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+              onItemClickListner.onEdit(v,getAdapterPosition());
+            }
+        });
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                     onItemClickListner.onDelete(v,getAdapterPosition());
+                }
+            });
 
 
 

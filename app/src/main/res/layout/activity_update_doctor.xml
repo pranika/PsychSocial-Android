@@ -1,91 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@color/red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:weightSum="1">
-
-        <ImageView android:src="@drawable/psyc2"
-            android:layout_width="364dp"
-            android:layout_height="266dp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.37" />
+        android:background="@color/red"
+        android:paddingRight="24dp">
 
 
+        <!--  Name Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:textColorHint="@color/white"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/name"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="Name" />
+        </android.support.design.widget.TextInputLayout>
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textColorHint="@color/white"
             android:layout_marginBottom="8dp">
-            <TextView android:id="@+id/organization"
+            <EditText android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:textColor="#ffffff"
-                android:onClick="ontextclick"
-                android:clickable="true"
-
-                android:text="Sign Up As Organization" />
+                android:inputType="textEmailAddress"
+                android:hint="Email" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Password Label -->
+        <!-- Email Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/doctortype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="Doctor Type" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textColorHint="@color/white"
             android:layout_marginBottom="8dp">
-            <TextView android:id="@+id/doctor"
+            <EditText android:id="@+id/specialisation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="ontextclick"
-                android:clickable="true"
-                android:textColorHint="#ffffff"
-                android:hint="Sign Up As Doctor"/>
+                android:inputType="textEmailAddress"
+
+                android:hint="Specialization" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Password Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+        <!-- Signup Button -->
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/update"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <TextView android:id="@+id/loginorganization"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="ontextclick"
-                android:clickable="true"
-                android:textColorHint="#ffffff"
-                android:hint="Login As Organization"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <!-- Password Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <TextView android:id="@+id/logindoctor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="ontextclick"
-                android:clickable="true"
-                android:layout_marginBottom="50dp"
-                android:textColorHint="#ffffff"
-                android:hint="Login As Doctor"/>
-        </android.support.design.widget.TextInputLayout>
-
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:background="@color/white"
+            android:text="UPDATE DOCTOR"/>
 
 
     </LinearLayout>

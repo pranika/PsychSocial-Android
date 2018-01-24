@@ -24,7 +24,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class OrganizationAsync extends AsyncTask<Organization,String, Organization> {
 
-        String url = "http://10.1.232.254:3000/insert_organization";
+        String url = "http://192.168.1.8:3000/insert_organization";
 
 private Context context;
 

@@ -33,7 +33,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class DoctorAsync extends AsyncTask<Doctor,String, Doctor> {
 
-    String url = "http://10.1.224.85:1337/Doctors";
+    String url = "http://192.168.1.6:1337/Doctors";
 
     private Context context;
 

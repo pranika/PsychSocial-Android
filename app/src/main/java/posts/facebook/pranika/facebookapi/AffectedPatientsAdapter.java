@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,62 +21,71 @@ import java.util.Map;
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 /**
- * Created by nikhiljain on 8/7/17.
+ * Created by nikhiljain on 1/15/18.
  */
 
-public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHolder> {
+public class AffectedPatientsAdapter extends RecyclerView.Adapter<AffectedPatientsAdapter.ViewHolder> {
         Context context;
         List<Map<String, ?>> feedlist;
-    PatientsAdapter.OnItemClickListner onItemClickListner;
-    String patientkey;
+        AffectedPatientsAdapter.OnItemClickListner onItemClickListner;
 
-    private FirebaseAuth mauth;
-    private Object object;
 
-    public PatientsAdapter(Context context1, List<Map<String, ?>> feedList) {
+private FirebaseAuth mauth;
+
+
+public AffectedPatientsAdapter(Context context1, List<Map<String, ?>> feedList) {
         context=context1;
 
         feedlist=feedList;
         }
-    public interface OnItemClickListner{
-        public void onClick(View view, int position);
 
-    }
-    public void setOnItemClickListner(PatientsAdapter.OnItemClickListner onItemClickListner)
-    {
+
+
+    public void setOnItemClickListner(OnItemClickListner onItemClickListner) {
         this.onItemClickListner = onItemClickListner;
-
     }
 
-@Override
-public PatientsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+
+    public interface OnItemClickListner{
+    public void onClick(View view, int position);
+
+}
+//    public void setOnItemClickListner(OnItemClickListner onItemClickListner)
+//    {
+//        this.onItemClickListner = onItemClickListner;
+//
+//    }
+
+    @Override
+    public AffectedPatientsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
-        v= LayoutInflater.from(parent.getContext()).inflate(R.layout.patients,parent,false);
-        ViewHolder viewHolder=new ViewHolder(v);
+        v= LayoutInflater.from(parent.getContext()).inflate(R.layout.affectedpatientslist,parent,false);
+        AffectedPatientsAdapter.ViewHolder viewHolder=new AffectedPatientsAdapter.ViewHolder(v);
 
         return viewHolder;
-        }
+    }
 
-@Override
-public void onBindViewHolder(ViewHolder holder, int position) {
-    mauth= FirebaseAuth.getInstance();
+    @Override
+    public void onBindViewHolder(AffectedPatientsAdapter.ViewHolder holder, int position) {
+        mauth= FirebaseAuth.getInstance();
 
 
-    Log.d("bindlist",feedlist.toString());
+        Log.d("bindlist",feedlist.toString());
 
-    HashMap feed=(HashMap)feedlist.get(position);
+        HashMap feed=(HashMap)feedlist.get(position);
 
-    holder.name.setText((String)feed.get("name"));
-    holder.email.setText((String)feed.get("email"));
-    holder.gender.setText((String)feed.get("sex"));
-    holder.age_range.setText((String)feed.get("age_range"));
-    holder.usn.setText((String)feed.get("usn"));
-}
+        holder.name.setText((String)feed.get("name"));
+        holder.email.setText((String)feed.get("email"));
+        holder.gender.setText((String)feed.get("sex"));
+        holder.age_range.setText((String)feed.get("age_range"));
+        holder.usn.setText((String)feed.get("usn"));
+    }
 
-@Override
-public int getItemCount() {
+    @Override
+    public int getItemCount() {
         return feedlist.size();
-        }
+    }
 
 public class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
 
@@ -95,7 +102,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHo
     public ViewHolder(View itemView) {
         super(itemView);
         imageView=(ImageView) itemView.findViewById(R.id.image1);
-      //  button= (Button) itemView.findViewById(R.id.level);
+        button= (Button) itemView.findViewById(R.id.level);
 
         name =(TextView) itemView.findViewById(R.id.name);
         email=(TextView) itemView.findViewById(R.id.email);
@@ -103,12 +110,12 @@ public class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHo
         age_range=(TextView) itemView.findViewById(R.id.age_range);
 
         usn=(TextView) itemView.findViewById(R.id.usn);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onItemClickListner.onClick(v,getAdapterPosition());
-//            }
-//        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListner.onClick(v,getAdapterPosition());
+            }
+        });
 
 
 

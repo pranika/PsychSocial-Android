@@ -31,7 +31,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class MyAsync extends AsyncTask<List<Map<String,?>>,String, List<Map<String,?>>> {
     FirebaseAuth mauth;
 
-    String url = "http://10.1.232.254:1337/Patients";
+    String url = "http://10.1.220.127:1337/Patients";
     private Context context;
 
     public MyAsync(Context context) { this.context = context; }

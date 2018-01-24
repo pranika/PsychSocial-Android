@@ -24,7 +24,6 @@ import java.util.Map;
 
 public class MonthFeed extends AppCompatActivity {
 
-    String url="http://10.1.193.91:3000/showfeedsmonth";
     List<Map<String,?>> feedList;
 
 

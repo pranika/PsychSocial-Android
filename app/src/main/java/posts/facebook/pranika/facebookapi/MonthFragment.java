@@ -1,6 +1,7 @@
 package posts.facebook.pranika.facebookapi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,35 +20,43 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class MonthFragment extends Fragment {
+public class MonthFragment extends BaseFragment {
 
-    String url="http://10.1.195.231:3000/showfeedsmonth";
+    String url="";
+    private FirebaseAuth mauth;
     List<Map<String,?>> feedList;
     RecyclerView recyclerView;
     Context context;
     FeedAdapter feedAdapter;
-//    static MovieData movieData = new MovieData();
+
     OnClicklistner mlistner;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
     public MonthFragment() {
-    //    context=getContext();
-
 
     }
     public interface OnClicklistner {
@@ -58,8 +67,11 @@ public class MonthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_month, container, false);
+        url="http://"+((DaggerApplication)this.getActivity().getApplication()).getIpaddress()+"/Feed/showfeedsmonth";
+        mauth= FirebaseAuth.getInstance(myApp);
         try {
             mlistner = (OnClicklistner) v.getContext();
         }catch(Exception e){
@@ -86,30 +98,60 @@ public class MonthFragment extends Fragment {
         alpha.setInterpolator(new OvershootInterpolator());
         scale.setFirstOnly(false);
 
-
-
         feedList=new ArrayList<Map<String, ?>>();
         addData();
-
-
-
-
-
 
         return v;
     }
     public void addData()
     {
 
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, url,
+        String patientid=pref.getString("substitute_patient","");
+        String selfpatientid=pref.getString("selfpatientid","");
 
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+        JSONObject json = new JSONObject();
+        try {
 
-                        Log.d("feed",response);
-                        try {
-                            final JSONObject obj = new JSONObject(response);
+
+            if(patientid!=""){
+                json.put("substitute_patient",patientid);
+               // pref.edit().putString("substitute_patient",patientid);
+            }
+            if(selfpatientid!=""){
+                json.put("doctor",mauth.getCurrentUser().getUid());
+
+                json.put("selfpatientid",selfpatientid);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        RequestBody body = RequestBody.create(JSON, json.toString());
+
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("response", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, final okhttp3.Response response) throws IOException {
+
+                    try {
+
+                        String resbody = response.body().string();
+                            final JSONObject obj = new JSONObject(resbody);
 
                             final JSONArray facebookdata = obj.getJSONArray("month feed");
                             int n = facebookdata.length();
@@ -117,28 +159,30 @@ public class MonthFragment extends Fragment {
 
                                 final JSONObject fbuser = facebookdata.getJSONObject(i);
 
-                                Log.d("feeddata",fbuser.toString());
+                                Log.d("feeddata", fbuser.toString());
 
                                 HashMap feed1 = new HashMap();
 
 
-                                feed1.put("id",fbuser.getString("_id"));
 
-
-                                feed1.put("email",fbuser.getString("email"));
-                                feed1.put("name",fbuser.getString("name"));
-                                feed1.put("gender",fbuser.getString("gender"));
-                                feed1.put("age_range",fbuser.getString("age_range"));
-                                feed1.put("createdtime",fbuser.getString("createdtime"));
-                                feed1.put("story",fbuser.optString("story"));
-                                feed1.put("message",fbuser.optString("message"));
-                                feed1.put("detect_flag",fbuser.getString("detect_flag"));
+                                feed1.put("email", fbuser.getString("email"));
+                                feed1.put("name", fbuser.getString("name"));
+                                feed1.put("gender", fbuser.getString("gender"));
+                                feed1.put("age_range", fbuser.getString("age_range"));
+                                feed1.put("createdtime", fbuser.getString("createdtime"));
+                                feed1.put("story", fbuser.optString("story"));
+                                feed1.put("message", fbuser.optString("message"));
+                                feed1.put("detect_flag", fbuser.getString("detect_flag"));
 
                                 feedList.add(feed1);
-
-
                             }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
+                    MonthFragment.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             feedAdapter=new FeedAdapter(getActivity(),feedList);
                             recyclerView.setAdapter(feedAdapter);
                             recyclerView.setAdapter(new AlphaInAnimationAdapter(feedAdapter));
@@ -153,35 +197,20 @@ public class MonthFragment extends Fragment {
                                 public void onClick(View view, int position) {
 
                                     HashMap feed=new HashMap(position);
-                                  //  Log.d("hashmap",feed.get("createdtime").toString());
+
                                     mlistner.showActivity(feed,position,feedList);
 
 
                                 }
                             });
 
-
                         }
-                        catch (Exception e)
-                        {}
+                    });
 
-
-
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context,"Something went wrong",Toast.LENGTH_LONG);
-                error.printStackTrace();
 
 
             }
         });
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
-
 
 
 

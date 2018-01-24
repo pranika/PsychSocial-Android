@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgcolor"
+    android:background="@color/red"
     android:orientation="vertical"
 >
     <TextView
@@ -13,7 +13,8 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="30dp"
         android:text="Doctor Sign Up"
-        android:textStyle="bold"
+        android:textColor="@color/white"
+
         android:textSize="20dp" />
 
     <EditText
@@ -104,25 +105,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Doctor Type"
+            android:layout_marginLeft="20dp"
             android:textColor="#616161"
 
-            android:textSize="20dp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"></TextView>
+            android:layout_marginTop="8dp"
+           ></TextView>
 
         <RadioGroup
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/type"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radio_physican"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:textSize="20dp"
-                android:textStyle="bold"
+
+
                 android:textColor="#616161"
                 android:textColorHint="@color/grey"
                 android:onClick="onRadioButtonClicked"
@@ -132,8 +133,7 @@
                 android:id="@+id/radio_coordinator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
+
                 android:textColor="#616161"
                 android:textColorHint="@color/grey"
                 android:onClick="onRadioButtonClicked"
@@ -149,8 +149,9 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
-        android:background="@color/blue"
-        android:textColor="#ffffff"
+        android:layout_marginTop="20dp"
+
+        android:background="#ffffff"
         android:text="Create User" />
 
 
@@ -161,7 +162,8 @@
         android:layout_below="@+id/signup"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="100dp"
-        android:textStyle="bold"
+        android:textColor="@color/white"
+
         android:layout_marginTop="10dp"
         android:text="Already have a account ?"
         android:textSize="18dp" />
@@ -173,15 +175,16 @@
         android:layout_below="@+id/loginTV"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
-        android:background="@color/blue"
-        android:textColor="#ffffff"
+
+
+        android:background="#ffffff"
         android:text="Login" />
     <Button
         android:id="@+id/logout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:textColor="#ffffff"
+        android:background="#ffffff"
+
 
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"

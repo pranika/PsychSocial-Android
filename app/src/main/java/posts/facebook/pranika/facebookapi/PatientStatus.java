@@ -19,6 +19,8 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
+
 public class PatientStatus extends AppCompatActivity {
 
 
@@ -26,7 +28,7 @@ public class PatientStatus extends AppCompatActivity {
     RadioButton level;
     Button button;
 
-    String app_url = "http://10.1.195.231:3000/update_status";
+    String app_url="";
     int selectedid=0;
     private RadioGroup group;
     Button update;
@@ -36,6 +38,7 @@ public class PatientStatus extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_status);
+        app_url = "http://10.1.245.214/update_status";
         group= (RadioGroup) findViewById(R.id.radio);
 
         button= (Button) findViewById(R.id.update);

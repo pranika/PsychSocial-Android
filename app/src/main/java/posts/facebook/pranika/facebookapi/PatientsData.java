@@ -2,6 +2,7 @@ package posts.facebook.pranika.facebookapi;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.firebase.client.Firebase;
 
 /**
@@ -14,5 +15,6 @@ public class PatientsData extends Application {
     public void onCreate() {
         super.onCreate();
         Firebase.setAndroidContext(this);
+        Stetho.initializeWithDefaults(this);
     }
 }

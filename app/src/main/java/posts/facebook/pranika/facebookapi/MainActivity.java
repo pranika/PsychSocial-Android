@@ -1,12 +1,8 @@
 package posts.facebook.pranika.facebookapi;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.service.voice.VoiceInteractionSession;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 import android.util.Log;
@@ -20,13 +16,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.facebook.AccessToken;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -38,36 +31,24 @@ import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoDatabase;
 
-import org.json.JSONArray;
+
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
-
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
@@ -76,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String DOCTOR_ID = "DOCTOR_ID";
 
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
     private static final String DOC = "docid";
-    // PREFS_MODE defines which apps can access the file
-    private static final int PREFS_MODE = Context.MODE_PRIVATE;
-    String url1 = "http://192.168.1.21:1337/Patients";
-    String url_feeds = "http://192.168.1.21:3000/storefeeds";
+
+    String organizationid="";
+    String url3 = "";
+    String url1 = "";
+    String url_feeds = "http://10.1.245.214:3000/storefeeds";
     Button signup;
     CallbackManager callbackManager;
     String type="";
@@ -124,9 +105,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        url3="http://"+((DaggerApplication)this.getApplication()).getIpaddress()+"/Doctors/getorganizationid";
+        url1 = "http://"+((DaggerApplication)this.getApplication()).getIpaddress()+"/Patients";
+
         updateValues=new UpdateValues();
-        mauth=FirebaseAuth.getInstance();
-        final Bundle extras = getIntent().getExtras();
+        mauth=FirebaseAuth.getInstance(myApp);
         status= (RadioGroup) findViewById(R.id.radio);
         spinner= (Spinner) findViewById(R.id.static_spinner);
         adapter=ArrayAdapter.createFromResource(this,R.array.spinner,android.R.layout.simple_spinner_item);
@@ -287,75 +270,113 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getmInstance(getApplicationContext()).addToRequestQue(stringrequest);
 
     }
-    void makeVolleyRequest(String userid,String accesstoken){
+    void makeVolleyRequest(final String userid,final String accesstoken){
+        usntext = usn.getText().toString();
+        nametext=name.getText().toString();
+        dobtext=dob.getText().toString();
+        sextext=sex.getText().toString();
+        emailtext=emailedit.getText().toString();
+        case_history=casehistory.getText().toString();
+        phonetext=phone.getText().toString();
+        doctorid = mauth.getCurrentUser().getUid().toString();
 
-    OkHttpClient client = new OkHttpClient.Builder().build();
-    SharedPreferences   sharedpreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-    final String orgid=sharedpreferences.getString("orgid","");
-    usntext = usn.getText().toString();
-    nametext=name.getText().toString();
-    dobtext=dob.getText().toString();
-    sextext=sex.getText().toString();
-    emailtext=emailedit.getText().toString();
-    case_history=casehistory.getText().toString();
-    phonetext=phone.getText().toString();
-    doctorid = mauth.getCurrentUser().getUid().toString();
+//*******************************************************
+        JSONObject json1 = new JSONObject();
+        try {
+            json1.put("docid",doctorid);
 
-    JSONObject json = new JSONObject();
-    try {
-        json.put("patientid",userid);
-        json.put("organization",orgid);
-        json.put("doctor",doctorid);
-        json.put("accesstoken",accesstoken);
-        json.put("email",emailtext);
 
-        json.put("name",nametext);
-        json.put("case_history",case_history);
-        json.put("level",type);
-        json.put("phone",phonetext);
-        json.put("sex",sextext);
-        json.put("usn",usntext);
-        json.put("age_range",dobtext);
-
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
-
-    final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-    RequestBody body = RequestBody.create(JSON, json.toString());
-
-    Request request = new Request.Builder()
-            .url(url1)
-            .post(body)
-            .build();
-
-    client.newCall(request).enqueue(new Callback() {
-        @Override
-        public void onFailure(Call call, IOException e) {
-            Log.d("response", e.toString());
+        } catch (JSONException e) {
             e.printStackTrace();
-
-
         }
 
-        @Override
-        public void onResponse(Call call, okhttp3.Response response) throws IOException {
+        final MediaType JSON1 = MediaType.parse("application/json; charset=utf-8");
+
+        RequestBody body1 = RequestBody.create(JSON1, json1.toString());
+
+        Request request1 = new Request.Builder()
+                .url(url3)
+                .post(body1)
+                .build();
+
+        client.newCall(request1).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("response", e.toString());
+                e.printStackTrace();
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+
+                organizationid=response.body().string();
+
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("patientid",userid);
+                    json.put("organization",organizationid);
+                    json.put("doctor",doctorid);
+                    json.put("accesstoken",accesstoken);
+                    json.put("email",emailtext);
+
+                    json.put("name",nametext);
+                    json.put("case_history",case_history);
+                    json.put("level",type);
+                    json.put("phone",phonetext);
+                    json.put("sex",sextext);
+                    json.put("usn",usntext);
+                    json.put("age_range",dobtext);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+                RequestBody body = RequestBody.create(JSON, json.toString());
+
+                Request request = new Request.Builder()
+                        .url(url1)
+                        .post(body)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("response", e.toString());
+                        e.printStackTrace();
+
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, okhttp3.Response response) throws IOException {
 //                            Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-            Log.d("response", response.toString());
-            Log.d("response", response.body().string());
-        }
-    });
+                        Log.d("response", response.toString());
+                        Log.d("response", response.body().string());
+                    }
+                });
+
+
+
+
+            }
+        });
+
+
+        //**************************************************
+
+   // final String orgid=pref.getString("orgid","");
 
 
 
 }
 
-void storefeeds(){
+    void storefeeds(){
 
     //*******************************okhttp store feed*************************
-
-    OkHttpClient client = new OkHttpClient.Builder().build();
 
     Request request = new Request.Builder()
             .url(url_feeds)

@@ -145,6 +145,7 @@ public class TabbedActivity extends AppCompatActivity implements MonthFragment.O
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -167,6 +168,11 @@ public class TabbedActivity extends AppCompatActivity implements MonthFragment.O
                 case 3:
                     YearFeed yearFeed=new YearFeed();
                     return yearFeed;
+                case 4:
+
+                    UpdatePatientStatusFragment status=new UpdatePatientStatusFragment();
+
+                    return status;
 
 
             }
@@ -177,7 +183,7 @@ public class TabbedActivity extends AppCompatActivity implements MonthFragment.O
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 5;
         }
 
         @Override
@@ -191,6 +197,8 @@ public class TabbedActivity extends AppCompatActivity implements MonthFragment.O
                     return "WEEK FEED";
                 case 3:
                     return "YEAR FEED";
+                case 4:
+                    return "UPDATE STATUS";
 
             }
             return null;

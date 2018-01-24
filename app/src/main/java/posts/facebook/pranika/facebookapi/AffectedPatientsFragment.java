@@ -1,10 +1,9 @@
 package posts.facebook.pranika.facebookapi;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,12 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,46 +36,84 @@ import okhttp3.RequestBody;
 import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
 
 
-public class RegisterdUsers extends BaseFragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
 
-    TextView textView;
-    private Firebase ref;
+ * to handle interaction events.
+ * Use the {@link AffectedPatientsFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class AffectedPatientsFragment extends  BaseFragment{
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     String url="";
     private FirebaseAuth mauth;
     List<Map<String,?>> patientlist;
     RecyclerView recyclerView;
-    PatientsAdapter patientsAdapter;
-    OnLevelClicklistner mlistner;
+    AffectedPatientsAdapter patientsAdapter;
+    OnItemClickListner mlistner;
     private RecyclerView.LayoutManager mLayoutManager;
-    String userid="";
-    List<Map<String,?>> feedList;
 
-        Context mContext;
-
-    public interface OnLevelClicklistner {
-        void showLevelActivity(HashMap feed,int position,List<Map<String,?>> feedList);
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+    public interface OnItemClickListner {
+        void showFeeds(HashMap feed,int position,List<Map<String,?>> feedList);
     }
-    public RegisterdUsers() {
 
-        feedList = new ArrayList<Map<String,?>>();
 
+
+    public AffectedPatientsFragment() {
+        // Required empty public constructor
     }
-    public void setContext(Context context){mContext = context;}
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment AffectedPatientsFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static AffectedPatientsFragment newInstance(String param1, String param2) {
+        AffectedPatientsFragment fragment = new AffectedPatientsFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
         // Inflate the layout for this fragment
-        View rootview= inflater.inflate(R.layout.fragment_registerd_users, container, false);
-        url = "http://"+((DaggerApplication)this.getActivity().getApplication()).getIpaddress()+"/Patients/getPatients";
-        patientlist=new ArrayList<Map<String,?>>();
-        textView= (TextView) rootview.findViewById(R.id.textpatient);
-        recyclerView= (RecyclerView) rootview.findViewById(R.id.patientsrecycler_view);
+        View rootview=inflater.inflate(R.layout.fragment_affected_patients, container, false);
         try {
-            mlistner = (OnLevelClicklistner) rootview.getContext();
+            mlistner = (AffectedPatientsFragment.OnItemClickListner) rootview.getContext();
         }catch(Exception e){
 
         }
+
+        url = "http://"+((DaggerApplication)this.getActivity().getApplication()).getIpaddress()+"/Patients/getAffectedPatients";
+        patientlist=new ArrayList<Map<String,?>>();
+        //textView= (TextView) rootview.findViewById(R.id.textpatient);
+        recyclerView= (RecyclerView) rootview.findViewById(R.id.recycler_view_patients);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new SlideInLeftAnimator());
         recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
@@ -103,8 +135,8 @@ public class RegisterdUsers extends BaseFragment {
 
 
 
-        mauth=FirebaseAuth.getInstance(myApp);
-        userid=mauth.getCurrentUser().getUid().toString();
+        mauth= FirebaseAuth.getInstance(myApp);
+        String userid=mauth.getCurrentUser().getUid().toString();
 
         //****************************okhttp****************************************
 
@@ -149,6 +181,7 @@ public class RegisterdUsers extends BaseFragment {
                         final JSONObject fbuser = facebookdata.getJSONObject(i);
 
                         HashMap map=new HashMap();
+                        map.put("userid",fbuser.getString("id"));
                         map.put("name",fbuser.getString("name"));
                         map.put("email",fbuser.getString("email"));
                         map.put("sex",fbuser.getString("sex"));
@@ -163,21 +196,21 @@ public class RegisterdUsers extends BaseFragment {
                     e.printStackTrace();
                 }
 
-                RegisterdUsers.this.getActivity().runOnUiThread(new Runnable() {
+                AffectedPatientsFragment.this.getActivity().runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
 
-                        patientsAdapter = new PatientsAdapter(getActivity(), patientlist);
+                        patientsAdapter = new AffectedPatientsAdapter(getActivity(), patientlist);
                         recyclerView.setAdapter(patientsAdapter);
                         recyclerView.setAdapter(new AlphaInAnimationAdapter(patientsAdapter));
                         recyclerView.setAdapter(new ScaleInAnimationAdapter(patientsAdapter));
-                        patientsAdapter.setOnItemClickListner(new PatientsAdapter.OnItemClickListner() {
-
+                        patientsAdapter.setOnItemClickListner(new AffectedPatientsAdapter.OnItemClickListner() {
                             @Override
                             public void onClick(View view, int position) {
+
                                 HashMap feed=new HashMap(position);
-                                mlistner.showLevelActivity(feed,position,feedList);
+                                mlistner.showFeeds(feed,position,patientlist);
 
 
                             }
@@ -189,8 +222,15 @@ public class RegisterdUsers extends BaseFragment {
             }
         });
 
-     return rootview;
-    }
+        return rootview;
+
+
+
+}
+
+
+
+
 
 
 }

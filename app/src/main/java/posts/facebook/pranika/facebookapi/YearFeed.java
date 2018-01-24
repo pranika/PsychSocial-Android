@@ -19,10 +19,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,27 +35,28 @@ import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
 
 
+public class YearFeed extends BaseFragment{
 
-
-public class YearFeed extends android.support.v4.app.Fragment{
-
-        String url="http://10.1.195.231:3000/showfeedsyear";
+        String url="";
         List<Map<String,?>> feedList;
+        private FirebaseAuth mauth;
         RecyclerView recyclerView;
         Context context;
         YearAdapter yearAdapter;
-//    static MovieData movieData = new MovieData();
         OnYearClicklistner mlistner;
 private RecyclerView.LayoutManager mLayoutManager;
 
 
 public YearFeed() {
-        //    context=getContext();
 
-
-        }
+}
 public interface OnYearClicklistner {
     void showYearActivity(HashMap feed, int position, List<Map<String,?>> feedList);
 }
@@ -61,13 +65,16 @@ public interface OnYearClicklistner {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_year_feed, container, false);
+        url="http://"+((DaggerApplication)this.getActivity().getApplication()).getIpaddress()+"/Feed/showfeedsyear";
         try {
             mlistner = (OnYearClicklistner) v.getContext();
         }catch(Exception e){
 
         }
+        mauth= FirebaseAuth.getInstance(myApp);
 
         recyclerView= (RecyclerView) v.findViewById(R.id.recycler_viewyear);
         recyclerView.setHasFixedSize(true);
@@ -104,81 +111,112 @@ public interface OnYearClicklistner {
     public void addData()
     {
 
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, url,
+        String patientid=pref.getString("substitute_patient","");
+        String selfpatientid=pref.getString("selfpatientid","");
 
-                new Response.Listener<String>() {
+        JSONObject json = new JSONObject();
+        try {
+
+
+            if(patientid!=""){
+                json.put("substitute_patient",patientid);
+                // pref.edit().putString("substitute_patient",patientid);
+            }
+            if(selfpatientid!=""){
+                json.put("doctor",mauth.getCurrentUser().getUid());
+
+                json.put("selfpatientid",selfpatientid);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        RequestBody body = RequestBody.create(JSON, json.toString());
+
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("response", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, final okhttp3.Response response) throws IOException {
+
+                try {
+
+                    String resbody = response.body().string();
+                    final JSONObject obj = new JSONObject(resbody);
+
+                    final JSONArray facebookdata = obj.getJSONArray("year feed");
+                    int n = facebookdata.length();
+                    for (int i = 0; i < n; ++i) {
+
+                        final JSONObject fbuser = facebookdata.getJSONObject(i);
+
+                        Log.d("feeddata", fbuser.toString());
+
+                        HashMap feed1 = new HashMap();
+
+
+
+                        feed1.put("email", fbuser.getString("email"));
+                        feed1.put("name", fbuser.getString("name"));
+                        feed1.put("gender", fbuser.getString("gender"));
+                        feed1.put("age_range", fbuser.getString("age_range"));
+                        feed1.put("createdtime", fbuser.getString("createdtime"));
+                        feed1.put("story", fbuser.optString("story"));
+                        feed1.put("message", fbuser.optString("message"));
+                        feed1.put("detect_flag", fbuser.getString("detect_flag"));
+
+                        feedList.add(feed1);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                YearFeed.this.getActivity().runOnUiThread(new Runnable() {
                     @Override
-                    public void onResponse(String response) {
+                    public void run() {
+                        yearAdapter=new YearAdapter(getActivity(),feedList);
+                        recyclerView.setAdapter(yearAdapter);
+                        recyclerView.setAdapter(new AlphaInAnimationAdapter(yearAdapter));
+                        recyclerView.setAdapter(new ScaleInAnimationAdapter(yearAdapter));
 
-                        Log.d("feed",response);
-                        try {
-                            final JSONObject obj = new JSONObject(response);
 
-                            final JSONArray facebookdata = obj.getJSONArray("year feed");
-                            int n = facebookdata.length();
-                            for (int i = 0; i < n; ++i) {
 
-                                final JSONObject fbuser = facebookdata.getJSONObject(i);
+                        Log.d("list",feedList.toString());
+                        yearAdapter.setOnItemClickListner(new YearAdapter.OnItemClickListner() {
 
-                                Log.d("feeddata",fbuser.toString());
+                            @Override
+                            public void onClick(View view, int position) {
 
-                                HashMap feed1 = new HashMap();
+                                HashMap feed=new HashMap(position);
 
-                                feed1.put("id",fbuser.getString("_id"));
-                                feed1.put("email",fbuser.getString("email"));
-                                feed1.put("name",fbuser.getString("name"));
-                                feed1.put("gender",fbuser.getString("gender"));
-                                feed1.put("age_range",fbuser.getString("age_range"));
-                                feed1.put("createdtime",fbuser.getString("createdtime"));
-                                feed1.put("story",fbuser.optString("story"));
-                                feed1.put("message",fbuser.optString("message"));
-
-                                feedList.add(feed1);
+                                mlistner.showYearActivity(feed,position,feedList);
 
 
                             }
-                            yearAdapter=new YearAdapter(getActivity(),feedList);
-                            recyclerView.setAdapter(yearAdapter);
-                            recyclerView.setAdapter(new AlphaInAnimationAdapter(yearAdapter));
-                            recyclerView.setAdapter(new ScaleInAnimationAdapter(yearAdapter));
-
-
-
-                            Log.d("list",feedList.toString());
-                            yearAdapter.setOnItemClickListner(new YearAdapter.OnItemClickListner() {
-
-                                @Override
-                                public void onClick(View view, int position) {
-
-                                    HashMap feed=new HashMap(position);
-                                    //  Log.d("hashmap",feed.get("createdtime").toString());
-                                    mlistner.showYearActivity(feed,position,feedList);
-
-
-                                }
-                            });
-
-
-                        }
-                        catch (Exception e)
-                        {}
-
-
-
-
+                        });
 
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context,"Something went wrong",Toast.LENGTH_LONG);
-                error.printStackTrace();
+                });
+
 
 
             }
         });
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
+
 
 
 

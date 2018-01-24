@@ -43,11 +43,7 @@ public class Feeds extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                MonthFragment fragment = new MonthFragment();
-//                FragmentManager fm = getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//                fragmentTransaction.replace(R.id.frame, fragment);
-//                fragmentTransaction.commit();
+
 
 
                 Intent intent=new Intent(getApplicationContext(),MonthFeed.class);

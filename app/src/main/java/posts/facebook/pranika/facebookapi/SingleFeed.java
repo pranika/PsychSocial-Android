@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 public class SingleFeed extends AppCompatActivity {
 
-    String url="http://10.1.195.231:3000/getafeed";
+
     TextView name,email,feed,createdtime,sex;
 
     @Override
