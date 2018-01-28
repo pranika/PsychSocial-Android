@@ -15,6 +15,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
+import retrofit2.Retrofit;
 
 /**
  * Created by nikhiljain on 11/16/17.
@@ -51,6 +52,15 @@ public class AppModule {
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(new ChuckInterceptor(context))
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    Retrofit providesRetrofitClient(OkHttpClient client){
+
+        return new Retrofit.Builder().
+                client(client).
+                addConverterFactory(MoshiConverterFactory.create())
     }
 
     @Provides

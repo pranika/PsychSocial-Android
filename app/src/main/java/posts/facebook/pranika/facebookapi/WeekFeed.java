@@ -178,8 +178,6 @@ public class WeekFeed extends BaseFragment {
 
                         HashMap feed1 = new HashMap();
 
-
-
                         feed1.put("email", fbuser.getString("email"));
                         feed1.put("name", fbuser.getString("name"));
                         feed1.put("gender", fbuser.getString("gender"));

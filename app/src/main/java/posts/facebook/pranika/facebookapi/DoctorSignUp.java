@@ -1,32 +1,30 @@
 package posts.facebook.pranika.facebookapi;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -38,18 +36,31 @@ import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
 public class DoctorSignUp extends BaseActivity {
     private static final String USER_CREATION_SUCCESS = "Successfully created user";
     private static final String USER_CREATION_ERROR = "User creation error";
+    String phoneno="",address_text="";
 
     String userid = "";
-    EditText useremailET,specialisation;
+    EditText useremailET;
+    TextView specialisation;
     public static final String MyPREFERENCES = "MyPrefs" ;
-    EditText passwordET,name;
+    EditText passwordET;
+    TextView name;
+
+    EditText editnpi;
+    @BindView(R.id.edit_text_phoneno)
+    EditText phone;
+    @BindView(R.id.edit_text_address)
+    EditText address;
+
+    String npinumber="";
+
+    Button search;
 
     String doctype;
     Doctor doc;
 
     Button login,createButton,logout;
     Intent intent;
-    String url="",url2;
+    String url="",url2="";
     FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -58,22 +69,145 @@ public class DoctorSignUp extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_sign_up);
+        ButterKnife.bind(this);
         url = "http://"+((DaggerApplication)this.getApplication()).getIpaddress()+"/Doctors";
+
         doc = new Doctor();
 
         useremailET = (EditText) findViewById(R.id.edit_text_email);
         passwordET = (EditText) findViewById(R.id.edit_text_password);
-        specialisation = (EditText) findViewById(R.id.edit_text_specialisation);
+
+        specialisation = (TextView) findViewById(R.id.edit_text_specialisation);
         createButton = (Button) findViewById(R.id.signup);
-        name = (EditText) findViewById(R.id.edit_text_name);
+        search=(Button)findViewById(R.id.search);
+        name = (TextView) findViewById(R.id.edit_text_name);
+        editnpi= (EditText) findViewById(R.id.edit_npi_number);
         login = (Button) findViewById(R.id.login);
 
         mAuth = FirebaseAuth.getInstance(myApp);
         logout = (Button) findViewById(R.id.logout);
-
-        createButton.setOnClickListener(new View.OnClickListener() {
+        final String[] specialization = {""},name_text={""};
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(editnpi !=null){
+
+                    npinumber=editnpi.getText().toString();
+                    url2="https://npiregistry.cms.hhs.gov/api?number="+npinumber;
+
+                    //**********************api call*******************************
+                    okhttp3.Request request = new okhttp3.Request.Builder()
+                                .url(url2)
+                                .get()
+                                .build();
+
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                Log.d("response", e.toString());
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+
+                                try {
+
+                                    String resbody = response.body().string();
+
+                                    final JSONObject obj = new JSONObject(resbody);
+
+                                    final JSONArray doc_details = obj.getJSONArray("results");
+                                    int n = doc_details.length();
+
+                                    for (int i = 0; i < n; ++i) {
+
+                                        final JSONArray doctor = doc_details.getJSONObject(i).getJSONArray("taxonomies");
+                                        int length=doctor.length();
+                                      final JSONObject doctor_basic = doc_details.getJSONObject(i).getJSONObject("basic");
+
+                                        final JSONArray doctor_address = doc_details.getJSONObject(i).getJSONArray("addresses");
+                                        int addresslength=doctor_address.length();
+                                        HashMap feed1 = new HashMap();
+                                        for(int j=0;j<length;j++) {
+
+
+                                            final JSONObject doc_taxonomy = doctor.getJSONObject(i);
+
+                                            Log.d("feeddata", doc_taxonomy.toString());
+
+
+
+                                            feed1.put("specialization", doc_taxonomy.getString("desc"));
+                                                specialization[0] = doc_taxonomy.getString("desc");
+                                        }
+
+
+
+                                            Log.d("feeddata", doctor_basic.toString());
+
+
+
+                                            feed1.put("name", doctor_basic.getString("first_name")+" "+doctor_basic.getString("last_name"));
+                                            name_text[0] =  doctor_basic.getString("first_name")+" "+doctor_basic.getString("last_name");
+
+                                            for(int l=0;l<addresslength;l++){
+
+                                            final JSONObject address = doctor_address.getJSONObject(i);
+
+                                                if(address.get("address_purpose").equals("LOCATION"))
+                                                {
+                                                    feed1.put("address",address.get("address_1")+" "+address.get("postal_code"));
+                                                    feed1.put("city",address.get("city"));
+                                                    feed1.put("state",address.get("state"));
+                                                    feed1.put("telephone_number",address.get("telephone_number"));
+                                                    phoneno=address.get("telephone_number").toString();
+                                                    address_text=address.get("address_1")+", "+address.get("postal_code")+", "+address.get("city")+", "+address.get("state");
+
+                                                }
+                                        //    }
+
+
+//
+
+                                        }
+                                        DoctorSignUp.this.runOnUiThread(new Runnable() {
+                                                                            @Override
+                                                                            public void run() {
+
+                                                                                name.setText(name_text[0]);
+                                                                                specialisation.setText(specialization[0]);
+                                                                                phone.setText(phoneno);
+                                                                                address.setText(address_text);
+                                                                                try {
+                                                                                    verify_phoneno(phoneno);
+                                                                                } catch (JSONException e) {
+                                                                                    e.printStackTrace();
+                                                                                }
+
+                                                                            }
+                                                                        });
+
+
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        });
+
+
+
+                    //******************************************************************************
+
+
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Please enter NPI Number",Toast.LENGTH_LONG).show();}
 
                // createUser();
 
@@ -112,24 +246,80 @@ public class DoctorSignUp extends BaseActivity {
 
     }
 
-    public void onRadioButtonClicked(View view) {
-            // Is the button now checked?
-            boolean checked = ((RadioButton) view).isChecked();
-
-            // Check which radio button was clicked
-            switch(view.getId()) {
-                case R.id.radio_physican:
-                    if (checked)
-                        doctype="Primary Physician";
+    public void verify_phoneno(String phoneno) throws JSONException {
 
 
-                        break;
-                case R.id.radio_coordinator:
-                    if (checked)
-                        doctype ="Coordinator";
-                        break;
+        String verify_url="https://api.authy.com/protected/json/phones/verification/start";
+        JSONObject json = new JSONObject();
+        json.put("via","call");
+        json.put("phone_number",phoneno);
+        json.put("country_code",1);
+        json.put("locale","es");
+        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        RequestBody body = RequestBody.create(JSON, json.toString());
+
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(verify_url)
+                .post(body)
+                .header("X-Authy-API-Key","BIfUI7CSRLDXDY3js4cREGIH425L4CFG")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("response", e.toString());
+                e.printStackTrace();
             }
-        }
+
+            @Override
+            public void onResponse(Call call, final okhttp3.Response response) throws IOException {
+
+                Log.d("phone verify",response.body().string());
+
+                DoctorSignUp.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        PhoneVerification fragment = new PhoneVerification();
+                        FragmentManager fm = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                        fragmentTransaction.replace(R.id.frame, fragment);
+                        fragmentTransaction.commit();
+
+//                        Intent intent2=new Intent(getApplicationContext(),PhoneVerification.class);
+//                        startActivity(intent2);
+
+                    }
+                });
+
+
+
+
+            }
+        });
+
+
+    }
+
+//    public void onRadioButtonClicked(View view) {
+//            // Is the button now checked?
+//            boolean checked = ((RadioButton) view).isChecked();
+//
+//            // Check which radio button was clicked
+//            switch(view.getId()) {
+//                case R.id.radio_physican:
+//                    if (checked)
+//                        doctype="Primary Physician";
+//
+//
+//                        break;
+//                case R.id.radio_coordinator:
+//                    if (checked)
+//                        doctype ="Coordinator";
+//                        break;
+//            }
+//        }
 
 
 //    public void createUser() {

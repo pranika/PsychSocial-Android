@@ -4,20 +4,62 @@
     android:layout_height="match_parent"
     android:background="@color/red"
     android:orientation="vertical"
+
 >
-    <TextView
-        android:id="@+id/createAccount"
+    <!--<TextView-->
+        <!--android:id="@+id/createAccount"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginLeft="100dp"-->
+       <!---->
+        <!--android:text="Doctor Sign Up"-->
+        <!--android:textColor="@color/white"-->
+
+        <!--android:textSize="20dp" />-->
+    <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="30dp"
-        android:text="Doctor Sign Up"
-        android:textColor="@color/white"
-
-        android:textSize="20dp" />
+        android:weightSum="1">
 
     <EditText
+        android:id="@+id/edit_npi_number"
+        android:layout_width="190dp"
+
+        android:layout_marginLeft="20dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/createAccount"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="Enter your NPI Number"
+
+        android:inputType="textEmailAddress"
+        android:nextFocusDown="@+id/edit_text_password"
+        android:padding="14dp"
+        android:textColor="#616161"
+        android:textColorHint="@color/grey"
+
+        android:textSize="15.3sp" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+
+
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
+            android:text="Search"
+            android:layout_weight="0.17" />
+
+
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/edit_text_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +117,40 @@
 
         android:textSize="15.3sp" />
     <EditText
+        android:id="@+id/edit_text_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/createAccount"
+        android:background="@android:color/white"
+
+        android:hint="Enter your Address"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:padding="14dp"
+        android:textColor="#616161"
+        android:textColorHint="@color/grey"
+
+        android:textSize="15.3sp" />
+    <EditText
+        android:id="@+id/edit_text_phoneno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/createAccount"
+        android:background="@android:color/white"
+
+        android:hint="Enter your Phone No"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:padding="14dp"
+        android:textColor="#616161"
+        android:textColorHint="@color/grey"
+
+        android:textSize="15.3sp" />
+    <TextView
         android:id="@+id/edit_text_specialisation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,70 +162,71 @@
 
         android:hint="Enter your Specialization"
         android:imeOptions="actionDone"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:padding="14dp"
         android:textColor="#616161"
         android:textColorHint="@color/grey"
 
         android:textSize="15.3sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView2"
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:orientation="horizontal">-->
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Doctor Type"
-            android:layout_marginLeft="20dp"
-            android:textColor="#616161"
+        <!--<TextView-->
+            <!--android:id="@+id/textView2"-->
 
-            android:layout_marginTop="8dp"
-           ></TextView>
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Doctor Type"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:textColor="#616161"-->
 
-        <RadioGroup
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/type"
-            android:orientation="horizontal">
+            <!--android:layout_marginTop="8dp"-->
+           <!--&gt;</TextView>-->
 
-            <RadioButton
-                android:id="@+id/radio_physican"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <!--<RadioGroup-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/type"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<RadioButton-->
+                <!--android:id="@+id/radio_physican"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
 
 
 
-                android:textColor="#616161"
-                android:textColorHint="@color/grey"
-                android:onClick="onRadioButtonClicked"
-                android:text="Primary Physician" />
+                <!--android:textColor="#616161"-->
+                <!--android:textColorHint="@color/grey"-->
+                <!--android:onClick="onRadioButtonClicked"-->
+                <!--android:text="Primary Physician" />-->
 
-            <RadioButton
-                android:id="@+id/radio_coordinator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <!--<RadioButton-->
+                <!--android:id="@+id/radio_coordinator"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
 
-                android:textColor="#616161"
-                android:textColorHint="@color/grey"
-                android:onClick="onRadioButtonClicked"
-                android:text="Coordinator" />
-        </RadioGroup>
+                <!--android:textColor="#616161"-->
+                <!--android:textColorHint="@color/grey"-->
+                <!--android:onClick="onRadioButtonClicked"-->
+                <!--android:text="Coordinator" />-->
+        <!--</RadioGroup>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <Button
         android:id="@+id/signup"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
 
         android:background="#ffffff"
         android:text="Create User" />
@@ -158,20 +235,20 @@
     <TextView
         android:id="@+id/loginTV"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="15dp"
         android:layout_below="@+id/signup"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="100dp"
         android:textColor="@color/white"
 
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="Already have a account ?"
-        android:textSize="18dp" />
+        android:textSize="12dp" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_below="@+id/loginTV"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
@@ -182,12 +259,20 @@
     <Button
         android:id="@+id/logout"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:background="#ffffff"
 
 
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:text="Logout" />
+    <FrameLayout
+        android:id="@+id/framesingle"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
 
 </LinearLayout>
