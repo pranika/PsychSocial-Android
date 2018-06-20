@@ -20,9 +20,9 @@ import posts.facebook.pranika.facebookapi.Module.AppModule;
 public class DaggerApplication extends Application {
 
     AppComponent appComponent;
-    //static String ipaddress="128.230.247.131/s";
+    static String ipaddress="128.230.247.131/s";
 
-    static String ipaddress="128.230.153.45:1337";
+    //static String ipaddress="128.230.153.45:1337";
     public String getIpaddress() {
         return ipaddress;
     }
