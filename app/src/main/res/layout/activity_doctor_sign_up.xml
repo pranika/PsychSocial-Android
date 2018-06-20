@@ -28,11 +28,11 @@
         android:layout_width="190dp"
 
         android:layout_marginLeft="20dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/createAccount"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@android:color/white"
         android:hint="Enter your NPI Number"
 
@@ -42,7 +42,7 @@
         android:textColor="#616161"
         android:textColorHint="@color/grey"
 
-        android:textSize="15.3sp" />
+        android:textSize="13sp" />
 
         <Button
             android:id="@+id/search"
@@ -76,7 +76,7 @@
         android:textColor="#616161"
         android:textColorHint="@color/grey"
 
-        android:textSize="15.3sp" />
+        android:textSize="13sp" />
 
     <EditText
         android:id="@+id/edit_text_email"
@@ -96,7 +96,7 @@
 
         android:textColor="#616161"
 
-        android:textSize="15.3sp" />
+        android:textSize="13sp" />
 
 
     <EditText
@@ -115,7 +115,7 @@
         android:textColor="#616161"
         android:textColorHint="@color/grey"
 
-        android:textSize="15.3sp" />
+        android:textSize="13sp" />
     <EditText
         android:id="@+id/edit_text_address"
         android:layout_width="match_parent"
@@ -132,7 +132,7 @@
         android:textColor="#616161"
         android:textColorHint="@color/grey"
 
-        android:textSize="15.3sp" />
+        android:textSize="13sp" />
     <EditText
         android:id="@+id/edit_text_phoneno"
         android:layout_width="match_parent"
@@ -149,7 +149,7 @@
         android:textColor="#616161"
         android:textColorHint="@color/grey"
 
-        android:textSize="15.3sp" />
+        android:textSize="13sp" />
     <TextView
         android:id="@+id/edit_text_specialisation"
         android:layout_width="match_parent"
@@ -167,7 +167,7 @@
         android:textColor="#616161"
         android:textColorHint="@color/grey"
 
-        android:textSize="15.3sp" />
+        android:textSize="13sp" />
 
 
     <!--<LinearLayout-->
@@ -222,11 +222,11 @@
     <Button
         android:id="@+id/signup"
         android:layout_width="300dp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
 
         android:background="#ffffff"
         android:text="Create User" />
@@ -235,20 +235,20 @@
     <TextView
         android:id="@+id/loginTV"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
+        android:layout_height="20dp"
         android:layout_below="@+id/signup"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="100dp"
         android:textColor="@color/white"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:text="Already have a account ?"
-        android:textSize="12dp" />
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="300dp"
-        android:layout_height="20dp"
+        android:layout_height="25dp"
         android:layout_below="@+id/loginTV"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
@@ -259,7 +259,7 @@
     <Button
         android:id="@+id/logout"
         android:layout_width="300dp"
-        android:layout_height="20dp"
+        android:layout_height="25dp"
         android:background="#ffffff"
 
 

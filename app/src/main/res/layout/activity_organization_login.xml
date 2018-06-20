@@ -27,6 +27,7 @@
             <EditText android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:inputType="textEmailAddress"
 
 
@@ -42,7 +43,7 @@
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/pwd"
                 android:layout_width="match_parent"
-
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textColorHint="#ffffff"

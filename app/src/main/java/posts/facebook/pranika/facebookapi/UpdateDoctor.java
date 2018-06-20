@@ -30,8 +30,7 @@ public class UpdateDoctor extends AppCompatActivity {
     EditText nametext;
     @BindView(R.id.email)
     EditText emailtext;
-    @BindView(R.id.doctortype)
-    EditText doctortypetext;
+
     @BindView(R.id.specialisation)
     EditText specializationtext;
     @BindView(R.id.update)
@@ -52,7 +51,7 @@ public class UpdateDoctor extends AppCompatActivity {
         final HashMap doctor = (HashMap) intent.getSerializableExtra("doctor");
         nametext.setText(doctor.get("name").toString());
         emailtext.setText(doctor.get("email").toString());
-        doctortypetext.setText(doctor.get("doctortype").toString());
+
         specializationtext.setText(doctor.get("specialization").toString());
         updatebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +59,7 @@ public class UpdateDoctor extends AppCompatActivity {
                 String doctorid=doctor.get("doctorid").toString();
                 String name=nametext.getText().toString();
                 String email=emailtext.getText().toString();
-                String doctortype=doctortypetext.getText().toString();
+
                 String specialization=specializationtext.getText().toString();
 
                 OkHttpClient client = new OkHttpClient.Builder().build();
@@ -71,7 +70,7 @@ public class UpdateDoctor extends AppCompatActivity {
 
                     json.put("name",name);
                     json.put("email",email);
-                    json.put("doctortype",doctortype);
+
                     json.put("specialization",specialization);
                     json.put("doctorid",doctorid);
 

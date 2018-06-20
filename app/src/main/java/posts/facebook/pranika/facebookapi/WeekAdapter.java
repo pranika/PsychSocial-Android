@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +93,11 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder> {
             holder.feed.setText((String)feed.get("story"));
 
         }
+        if(!feed.get("post_image").equals(""))
+        Picasso.with(context).load(feed.get("post_image").toString()).into(holder.imageView);
+
+        //Picasso.get().load(feed.get("post_image")).into(holder.imageView);
+
     }
 
     @Override

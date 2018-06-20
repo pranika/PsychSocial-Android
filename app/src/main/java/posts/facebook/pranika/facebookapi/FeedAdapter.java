@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +112,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
 
         holder.create_time.setText((String)feed.get("createdtime"));
+        if(!feed.get("post_image").equals(""))
+            Picasso.with(context).load(feed.get("post_image").toString()).into(holder.imageView);
     }
 
     @Override

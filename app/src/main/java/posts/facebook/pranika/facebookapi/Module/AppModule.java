@@ -15,7 +15,10 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
+//import posts.facebook.pranika.facebookapi.data.DoctorDataSource;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.moshi.MoshiConverterFactory;
 
 /**
  * Created by nikhiljain on 11/16/17.
@@ -54,14 +57,41 @@ public class AppModule {
                 .build();
     }
 
-    @Provides
-    @Singleton
-    Retrofit providesRetrofitClient(OkHttpClient client){
 
-        return new Retrofit.Builder().
-                client(client).
-                addConverterFactory(MoshiConverterFactory.create())
-    }
+
+
+//    @Provides
+//    @Singleton
+//    Retrofit providesRetrofitClientNPI(OkHttpClient client){
+//
+//        return new Retrofit.Builder().
+//                client(client).
+//                addConverterFactory(MoshiConverterFactory.create())
+//                .baseUrl("https://npiregistry.cms.hhs.gov/")
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build();
+//
+//    }
+//
+//    @Provides
+//    @Singleton
+//    Retrofit providesRetrofitClient(OkHttpClient client){
+//
+//        return new Retrofit.Builder().
+//                client(client).
+//                addConverterFactory(MoshiConverterFactory.create())
+//                .baseUrl("http://192.168.1.18:1337/")
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build();
+//
+//    }
+
+//    @Provides
+//    @Singleton
+//    DoctorDataSource doctorDataSource(Retrofit retrofit){
+//
+//        return new DoctorDataSource(retrofit);
+//    }
 
     @Provides
     @Singleton

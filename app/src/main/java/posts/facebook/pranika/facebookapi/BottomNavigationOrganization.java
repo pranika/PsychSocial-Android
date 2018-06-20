@@ -112,7 +112,7 @@ public class BottomNavigationOrganization extends BaseActivity{
                                                 doctor.put("email",fbuser.getString("email"));
                                                 doctor.put("name",fbuser.getString("name"));
                                                 doctor.put("specialization",fbuser.getString("specialization"));
-                                                doctor.put("doctortype",fbuser.getString("doctortype"));
+
                                                 doctorList.add(doctor);
 
                                                 BottomNavigationOrganization.this.runOnUiThread(new Runnable() {

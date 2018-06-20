@@ -4,27 +4,26 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FrontPage extends AppCompatActivity {
-
-    @BindView(R.id.organization)
-    TextView organization;
-    @BindView(R.id.doctor)
-    TextView doctor;
-    @BindView(R.id.loginorganization)
-    TextView loginorg;
-    @BindView(R.id.logindoctor)
-    TextView logindoc;
+public class HomePage extends BaseActivity {
+    @BindView(R.id.orgsignup)
+    Button organization;
+    @BindView(R.id.docsignup)
+    Button doctor;
+    @BindView(R.id.orglogin)
+    Button loginorg;
+    @BindView(R.id.doclogin)
+    Button logindoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_front_page);
+        setContentView(R.layout.activity_home_page);
         ButterKnife.bind(this);
     }
 
@@ -33,27 +32,27 @@ public class FrontPage extends AppCompatActivity {
         Intent intent;
 
         switch (view.getId()){
-            case R.id.organization:
+            case R.id.orgsignup:
 
                 intent=new Intent(getApplicationContext(),OrganizationSignUp.class);
                 startActivity(intent);
 
                 break;
-            case R.id.doctor:
+            case R.id.docsignup:
 
-                intent=new Intent(getApplicationContext(),DoctorSignUp.class);
+                intent=new Intent(getApplicationContext(),SignUpDecision.class);
                 startActivity(intent);
 
                 break;
 
-            case R.id.loginorganization:
+            case R.id.orglogin:
 
                 intent=new Intent(getApplicationContext(),OrganizationLogin.class);
                 startActivity(intent);
 
                 break;
 
-            case R.id.logindoctor:
+            case R.id.doclogin:
 
                 intent=new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);

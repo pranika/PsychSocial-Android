@@ -89,7 +89,7 @@ public class WeekFeed extends BaseFragment {
         recyclerView.getItemAnimator().setRemoveDuration(2000);
         recyclerView.getItemAnimator().setMoveDuration(2000);
         recyclerView.getItemAnimator().setChangeDuration(2000);
-        recyclerView.setHasFixedSize(true);
+
         SlideInLeftAnimator animator = new SlideInLeftAnimator();
         animator.setInterpolator(new OvershootInterpolator());
         recyclerView.setItemAnimator(animator);
@@ -186,6 +186,7 @@ public class WeekFeed extends BaseFragment {
                         feed1.put("story", fbuser.optString("story"));
                         feed1.put("message", fbuser.optString("message"));
                         feed1.put("detect_flag", fbuser.getString("detect_flag"));
+                        feed1.put("post_image",fbuser.optString("post_image"));
 
                         feedList.add(feed1);
                     }

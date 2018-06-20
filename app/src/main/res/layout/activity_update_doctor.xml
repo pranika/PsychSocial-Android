@@ -26,7 +26,7 @@
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/name"
                 android:layout_width="match_parent"
-
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
                 android:hint="Name" />
@@ -43,22 +43,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                android:textColor="@color/white"
                 android:hint="Email" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Email Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/white"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/doctortype"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Doctor Type" />
-        </android.support.design.widget.TextInputLayout>
+
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
@@ -69,6 +59,7 @@
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/specialisation"
                 android:layout_width="match_parent"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
 

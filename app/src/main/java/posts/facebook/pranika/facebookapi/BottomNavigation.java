@@ -67,7 +67,7 @@ public class BottomNavigation extends BaseActivity {
 
                     case R.id.affected:
 
-                        Toast.makeText(getApplicationContext(), "self patient"+selfpatientid, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "self patient"+selfpatientid, Toast.LENGTH_SHORT).show();
 
 
                         if(patientid!="" || selfpatientid!="") {

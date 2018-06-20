@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "posts.facebook.pranika.facebookapi"
         minSdkVersion 22
@@ -25,6 +25,10 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/MANIFEST.MF'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
@@ -38,7 +42,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile files('libs/mongo-java-driver-3.2.0-SNAPSHOT.jar')
+
+
+   // compile files('libs/mongo-java-driver-3.2.0-SNAPSHOT.jar')
 
     //    compile 'com.firebaseui:firebase-ui-database:1.2.0'
 //
@@ -52,31 +58,40 @@ dependencies {
     // compile 'com.firebaseui:firebase-ui:1.2.0'
 
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(':MPChartLib')
+    implementation project(':MPChartLib')
 
     //*************dagger*************************
 
     //**************stetho**************************
 
-
     //*****************butterknife**********************
     //******************okhttp*************************
 
     //***************branch*********************
+
+    //**********************rxjs************************
+
+    //*******************Moshi********************************
+//    compile 'com.squareup.moshi:moshi:1.5.0'
+    // Retrofit
+
+    // Moshi
+
+    //*************chuck********************************
+    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.google.dagger:dagger:2.8'
     compile 'jp.wasabeef:recyclerview-animators:2.2.5'
     compile 'com.facebook.stetho:stetho:1.5.0'
-    //**********************rxjs************************
-    compile 'io.reactivex:rxandroid:0.25.0'
-    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.0.0'
     compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.facebook.android:facebook-android-sdk:4.14.0'
+   compile 'com.facebook.android:facebook-android-sdk:4.14.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.squareup.moshi:moshi:1.5.0'
+    compile'com.squareup.retrofit2:converter-moshi:2.3.0'
     compile 'com.firebase:firebase-client-android:2.5.2'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.android.support:cardview-v7:25.1.0'
@@ -88,31 +103,25 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'io.branch.sdk.android:library:2.+'
-    testCompile 'junit:junit:4.12'
+
+    //*****************DEXTER*******************
+    compile 'com.karumi:dexter:4.2.0'
+
+    //***************PICASSO**************
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    //*************************
+    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    //*************chuck********************************
-    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
-    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    //*****************Leak Canary*******************
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    //*****************************
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 apply plugin: 'com.google.gms.google-services'

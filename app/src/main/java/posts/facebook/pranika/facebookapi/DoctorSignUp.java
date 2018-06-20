@@ -1,6 +1,7 @@
 package posts.facebook.pranika.facebookapi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 
 import android.os.Bundle;
@@ -25,17 +26,23 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Flowable;
+//import okhttp3.Call;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
 
+
 import okhttp3.RequestBody;
 import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
+import posts.facebook.pranika.facebookapi.Model.Result;
+//import posts.facebook.pranika.facebookapi.data.DoctorDataSource;
+import retrofit2.Response;
 
 
 public class DoctorSignUp extends BaseActivity {
-    private static final String USER_CREATION_SUCCESS = "Successfully created user";
-    private static final String USER_CREATION_ERROR = "User creation error";
+//    private static final String USER_CREATION_SUCCESS = "Successfully created user";
+//    private static final String USER_CREATION_ERROR = "User creation error";
     String phoneno="",address_text="";
 
     String userid = "";
@@ -70,9 +77,7 @@ public class DoctorSignUp extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_sign_up);
         ButterKnife.bind(this);
-        url = "http://"+((DaggerApplication)this.getApplication()).getIpaddress()+"/Doctors";
 
-        doc = new Doctor();
 
         useremailET = (EditText) findViewById(R.id.edit_text_email);
         passwordET = (EditText) findViewById(R.id.edit_text_password);
@@ -94,6 +99,8 @@ public class DoctorSignUp extends BaseActivity {
                 if(editnpi !=null){
 
                     npinumber=editnpi.getText().toString();
+
+                  //  getData();
                     url2="https://npiregistry.cms.hhs.gov/api?number="+npinumber;
 
                     //**********************api call*******************************
@@ -101,6 +108,8 @@ public class DoctorSignUp extends BaseActivity {
                                 .url(url2)
                                 .get()
                                 .build();
+
+
 
                         client.newCall(request).enqueue(new Callback() {
                             @Override
@@ -122,7 +131,6 @@ public class DoctorSignUp extends BaseActivity {
                                     int n = doc_details.length();
 
                                     for (int i = 0; i < n; ++i) {
-
                                         final JSONArray doctor = doc_details.getJSONObject(i).getJSONArray("taxonomies");
                                         int length=doctor.length();
                                       final JSONObject doctor_basic = doc_details.getJSONObject(i).getJSONObject("basic");
@@ -180,11 +188,7 @@ public class DoctorSignUp extends BaseActivity {
                                                                                 specialisation.setText(specialization[0]);
                                                                                 phone.setText(phoneno);
                                                                                 address.setText(address_text);
-                                                                                try {
-                                                                                    verify_phoneno(phoneno);
-                                                                                } catch (JSONException e) {
-                                                                                    e.printStackTrace();
-                                                                                }
+
 
                                                                             }
                                                                         });
@@ -213,6 +217,12 @@ public class DoctorSignUp extends BaseActivity {
 
             }
         });
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verify_phoneno(phoneno);
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,27 +247,36 @@ public class DoctorSignUp extends BaseActivity {
         });
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-        Intent intent1=new Intent(getApplicationContext(),FrontPage.class);
+        Intent intent1=new Intent(getApplicationContext(),HomePage.class);
         startActivity(intent1);
 
     }
 
-    public void verify_phoneno(String phoneno) throws JSONException {
+    public void verify_phoneno(final String phoneno)  {
 
 
         String verify_url="https://api.authy.com/protected/json/phones/verification/start";
         JSONObject json = new JSONObject();
-        json.put("via","call");
-        json.put("phone_number",phoneno);
-        json.put("country_code",1);
-        json.put("locale","es");
-        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        try {
 
-        RequestBody body = RequestBody.create(JSON, json.toString());
+            json.put("via", "sms");
+            json.put("phone_number", "315-949-8821");
+            json.put("country_code", 1);
+            json.put("locale", "es");
+        }
+        catch (Exception e){
+        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+        }
+
+
+            final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+            RequestBody body = RequestBody.create(JSON, json.toString());
+
 
         okhttp3.Request request = new okhttp3.Request.Builder()
                 .url(verify_url)
@@ -265,6 +284,7 @@ public class DoctorSignUp extends BaseActivity {
                 .header("X-Authy-API-Key","BIfUI7CSRLDXDY3js4cREGIH425L4CFG")
                 .build();
 
+//******************************phone api call****************************
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -275,20 +295,31 @@ public class DoctorSignUp extends BaseActivity {
             @Override
             public void onResponse(Call call, final okhttp3.Response response) throws IOException {
 
-                Log.d("phone verify",response.body().string());
+
+
+              //  Log.d("phone verify",response.body().string());
 
                 DoctorSignUp.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                       // Toast.makeText(getApplicationContext(),response.body().toString(),Toast.LENGTH_LONG).show();
+                        SharedPreferences.Editor pEdit = pref.edit();
+                        pEdit.putString("phoneno",phoneno);
+                        pEdit.putString("email",useremailET.getText().toString());
+                        pEdit.putString("name",name.getText().toString());
+                        pEdit.putString("password",passwordET.getText().toString());
+                        pEdit.putString("specialization",specialisation.getText().toString());
+                        pEdit.commit();
+                        Intent intent=new Intent(getApplicationContext(),PhoneVerification.class);
+                        startActivity(intent);
+//                        PhoneVerification fragment = new PhoneVerification();
+//                        FragmentManager fm = getSupportFragmentManager();
+//                        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//                        fragmentTransaction.replace(R.id.framesingle, fragment);
+//                        fragmentTransaction.commit();
 
-                        PhoneVerification fragment = new PhoneVerification();
-                        FragmentManager fm = getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, fragment);
-                        fragmentTransaction.commit();
 
-//                        Intent intent2=new Intent(getApplicationContext(),PhoneVerification.class);
-//                        startActivity(intent2);
+
 
                     }
                 });
@@ -299,27 +330,11 @@ public class DoctorSignUp extends BaseActivity {
             }
         });
 
+        //************************phone api call***************************
 
     }
 
-//    public void onRadioButtonClicked(View view) {
-//            // Is the button now checked?
-//            boolean checked = ((RadioButton) view).isChecked();
-//
-//            // Check which radio button was clicked
-//            switch(view.getId()) {
-//                case R.id.radio_physican:
-//                    if (checked)
-//                        doctype="Primary Physician";
-//
-//
-//                        break;
-//                case R.id.radio_coordinator:
-//                    if (checked)
-//                        doctype ="Coordinator";
-//                        break;
-//            }
-//        }
+
 
 
 //    public void createUser() {

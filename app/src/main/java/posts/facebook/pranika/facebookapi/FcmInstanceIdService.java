@@ -36,7 +36,7 @@ public class FcmInstanceIdService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         mauth= FirebaseAuth.getInstance();
         ((DaggerApplication)getApplication()).getAppComponent().inject(this);
-        app_url="http://10.1.245.214:3000/update_token";
+        app_url="http://128.230.247.131/e/update_token";
 
         recent_token= FirebaseInstanceId.getInstance().getToken();
         System.out.println("recent token"+recent_token);

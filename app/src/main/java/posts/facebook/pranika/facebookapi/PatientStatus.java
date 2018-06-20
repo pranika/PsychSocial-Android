@@ -38,7 +38,7 @@ public class PatientStatus extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_status);
-        app_url = "http://10.1.245.214/update_status";
+        app_url = "http://128.230.247.131/e/update_status";
         group= (RadioGroup) findViewById(R.id.radio);
 
         button= (Button) findViewById(R.id.update);

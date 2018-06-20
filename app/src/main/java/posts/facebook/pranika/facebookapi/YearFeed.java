@@ -78,23 +78,23 @@ public interface OnYearClicklistner {
 
         recyclerView= (RecyclerView) v.findViewById(R.id.recycler_viewyear);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new SlideInLeftAnimator());
-        recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
-        recyclerView.getItemAnimator().setAddDuration(2000);
-        recyclerView.getItemAnimator().setRemoveDuration(2000);
-        recyclerView.getItemAnimator().setMoveDuration(2000);
-        recyclerView.getItemAnimator().setChangeDuration(2000);
-        recyclerView.setHasFixedSize(true);
-        SlideInLeftAnimator animator = new SlideInLeftAnimator();
-        animator.setInterpolator(new OvershootInterpolator());
-        recyclerView.setItemAnimator(animator);
+//        recyclerView.setItemAnimator(new SlideInLeftAnimator());
+//        recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
+//        recyclerView.getItemAnimator().setAddDuration(2000);
+//        recyclerView.getItemAnimator().setRemoveDuration(2000);
+//        recyclerView.getItemAnimator().setMoveDuration(2000);
+//        recyclerView.getItemAnimator().setChangeDuration(2000);
+//        recyclerView.setHasFixedSize(true);
+//        SlideInLeftAnimator animator = new SlideInLeftAnimator();
+//        animator.setInterpolator(new OvershootInterpolator());
+//        recyclerView.setItemAnimator(animator);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
-        AlphaInAnimationAdapter alpha = new AlphaInAnimationAdapter(yearAdapter);
-        ScaleInAnimationAdapter scale = new ScaleInAnimationAdapter(yearAdapter);
-        alpha.setDuration(2000);
-        alpha.setInterpolator(new OvershootInterpolator());
-        scale.setFirstOnly(false);
+//        recyclerView.setLayoutManager(mLayoutManager);
+//        AlphaInAnimationAdapter alpha = new AlphaInAnimationAdapter(yearAdapter);
+//        ScaleInAnimationAdapter scale = new ScaleInAnimationAdapter(yearAdapter);
+//        alpha.setDuration(2000);
+//        alpha.setInterpolator(new OvershootInterpolator());
+//        scale.setFirstOnly(false);
 
 
 
@@ -178,6 +178,7 @@ public interface OnYearClicklistner {
                         feed1.put("story", fbuser.optString("story"));
                         feed1.put("message", fbuser.optString("message"));
                         feed1.put("detect_flag", fbuser.getString("detect_flag"));
+                        feed1.put("post_image",fbuser.optString("post_image"));
 
                         feedList.add(feed1);
                     }

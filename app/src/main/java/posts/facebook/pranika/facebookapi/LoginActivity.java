@@ -48,21 +48,12 @@ public class LoginActivity extends BaseActivity {
 
                 if(firebaseAuth.getCurrentUser()!=null)
                 {
-//                         if(orgid!=null){
-//                             pref.edit().putString("orgid",orgid);
-//                        intent=new Intent(getApplicationContext(),BottomNavigationOrganization.class);
-//
-//                        startActivity(intent);
-//
-//
-//                    }
-//                    else if(orgid==null) {
-//
 
-                        intent = new Intent(getApplicationContext(), BottomNavigation.class);
-                        startActivity(new Intent(getApplicationContext(), BottomNavigation.class));
-//                    }
-//
+                        if(mauth!=null) {
+                            intent = new Intent(getApplicationContext(), BottomNavigation.class);
+                            startActivity(new Intent(getApplicationContext(), BottomNavigation.class));
+                        }
+
                 }
             }
         };

@@ -66,7 +66,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
 
         holder.name.setText(feed.get("name").toString());
         holder.email.setText(feed.get("email").toString());
-        holder.doctortype.setText(feed.get("doctortype").toString());
+
         holder.specialization.setText(feed.get("specialization").toString());
 
     }
@@ -85,7 +85,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
         public TextView name;
         public TextView email;
         public TextView specialization;
-        public TextView doctortype;
+
         public Button button;
 
 
@@ -99,7 +99,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
             name =(TextView) itemView.findViewById(R.id.name);
             email=(TextView) itemView.findViewById(R.id.email);
             specialization=(TextView) itemView.findViewById(R.id. specialisation);
-            doctortype=(TextView) itemView.findViewById(R.id. gender);
+
 
           edit.setOnClickListener(new View.OnClickListener() {
             @Override

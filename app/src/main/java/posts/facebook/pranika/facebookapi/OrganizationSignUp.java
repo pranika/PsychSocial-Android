@@ -207,7 +207,7 @@ public class OrganizationSignUp extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent=new Intent(getApplicationContext(),FrontPage.class);
+        Intent intent=new Intent(getApplicationContext(),HomePage.class);
         startActivity(intent);
     }
 }

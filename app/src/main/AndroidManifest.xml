@@ -4,7 +4,12 @@
     package="posts.facebook.pranika.facebookapi">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".DaggerApp.DaggerApplication"
@@ -16,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FrontPage">
+        <activity android:name=".HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +37,9 @@
         <activity android:name=".Feeds" />
         <activity android:name=".SingleFeed" />
         <activity android:name=".MonthFeed" />
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/LoginTheme" />
         <activity
             android:name=".TabbedActivity"
             android:label="@string/title_activity_tabbed"
@@ -63,42 +70,25 @@
         <activity android:name=".WeekGraph" />
         <activity android:name=".DoctorSignUp" />
         <activity android:name=".ShowDoctors" />
-        <activity android:name=".OrganizationSignUp" />
-        <activity android:name=".OrganizationLogin" />
-        <activity android:name=".UpdateDoctor" />
+        <activity
+            android:name=".OrganizationSignUp"
+            android:theme="@style/OrganizationTheme" />
+        <activity
+            android:name=".OrganizationLogin"
+            android:theme="@style/OrganizationTheme" />
+        />
+        <activity
+            android:name=".UpdateDoctor"
+            android:theme="@style/OrganizationTheme" />
         <activity android:name=".BottomNavigationOrganization" />
-
-        <!-- Branch init -->
-        <!-- <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_aeCQFMC3MWke3ctAeTdX4lmbsEj1pwEt" /> -->
-        <!-- <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_bkCVuTqXL4od2bzupGnZWfpnstf6oFqG" /> -->
-
-
-        <!-- &lt;!&ndash; Branch testing (TestMode "true" to simulate fresh installs on dev environment) &ndash;&gt; -->
-        <!-- <meta-data android:name="io.branch.sdk.TestMode" android:value="true" /> -->
-
-
-        <!-- Branch install referrer tracking -->
-        <!-- <receiver android:name="io.branch.referral.InstallListener" android:exported="true"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="com.android.vending.INSTALL_REFERRER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
-        <!-- <service android:name=".FcmInstanceIdService"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="com.google.firebase.INSTANCE_ID_EVENT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </service> -->
-        <!-- <service android:name=".FcmMessagingService"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </service> -->
-
         <activity android:name=".AffectedPatients" />
         <activity
             android:name=".PhoneVerification"
             android:label="@string/title_activity_phone_verification"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SignUpDecision" />
+        <activity android:name=".NonNPISignUp"
+            android:theme="@style/OrganizationTheme"></activity>
     </application>
 
 </manifest>

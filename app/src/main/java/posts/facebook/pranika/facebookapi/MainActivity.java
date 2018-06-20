@@ -62,7 +62,8 @@ public class MainActivity extends BaseActivity {
     String organizationid="";
     String url3 = "";
     String url1 = "";
-    String url_feeds = "http://10.1.245.214:3000/storefeeds";
+ //   String url_feeds = "http://128.230.247.131/e/storefeeds";
+    String url_feeds = "http://128.230.153.45:3000/storefeeds";
     Button signup;
     CallbackManager callbackManager;
     String type="";
@@ -311,6 +312,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
 
+                if(response==null){
+                    organizationid="No Organization";
+                }
+                else
                 organizationid=response.body().string();
 
                 JSONObject json = new JSONObject();
@@ -365,10 +370,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-
-        //**************************************************
-
-   // final String orgid=pref.getString("orgid","");
 
 
 

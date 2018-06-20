@@ -366,10 +366,9 @@ public class ShowDoctors extends BaseActivity{
 
                                     @Override
                                     public void backPressed() {
-                                       Intent intent1=new Intent(getApplicationContext(),BottomNavigationOrganization.class);
-                                        startActivity(intent1);
 
                                     }
+
                                 });
 
 
@@ -384,4 +383,10 @@ public class ShowDoctors extends BaseActivity{
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent=new Intent(getApplicationContext(),BottomNavigationOrganization.class);
+        startActivity(intent);
+    }
 }

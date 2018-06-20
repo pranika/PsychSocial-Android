@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import okhttp3.OkHttpClient;
 import posts.facebook.pranika.facebookapi.DaggerApp.DaggerApplication;
+//import posts.facebook.pranika.facebookapi.data.DoctorDataSource;
 
 /**
  * Created by nikhiljain on 11/16/17.
@@ -26,6 +27,9 @@ public class BaseActivity extends AppCompatActivity {
 
     @Inject
     public FirebaseApp myApp;
+
+//    @Inject
+//    public DoctorDataSource dataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

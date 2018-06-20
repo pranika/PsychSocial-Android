@@ -58,10 +58,6 @@ public class OrganizationLogin extends BaseActivity {
 
             pref.edit().putString("orgid",user.getUid()).commit();
 
-
-            Toast.makeText(getApplicationContext(),"orag id"+user.getUid(),Toast.LENGTH_LONG).show();
-
-
             intent = new Intent(getApplicationContext(), BottomNavigationOrganization.class);
 //
             startActivity(intent);

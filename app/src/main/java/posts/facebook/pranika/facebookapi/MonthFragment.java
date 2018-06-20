@@ -173,6 +173,7 @@ public class MonthFragment extends BaseFragment {
                                 feed1.put("story", fbuser.optString("story"));
                                 feed1.put("message", fbuser.optString("message"));
                                 feed1.put("detect_flag", fbuser.getString("detect_flag"));
+                                feed1.put("post_image",fbuser.optString("post_image"));
 
                                 feedList.add(feed1);
                             }
